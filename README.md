@@ -1,4 +1,5 @@
-## Spotlight
+# Spotlight
+### Sajt za humanitarne organizacije
 Korisnici sajta treba da imaju mogućnost:
   - kreiranja eventova
   - objavljivanje novosti

@@ -1,6 +1,11 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Spotlight",
+    "\\Spotlight\\Models",
+    "\\Spotlight\\Views",
+    "\\Spotlight\\Views\\Home"
   ],
+  "SelectedNode": "\\Spotlight\\Models\\MockNewsRepository.cs",
   "PreviewInSolutionExplorer": false
 }

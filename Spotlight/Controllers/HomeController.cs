@@ -12,10 +12,12 @@ namespace Spotlight.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private INewsPostRepository newsRepository;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, INewsPostRepository repo)
         {
             _logger = logger;
+            newsRepository = repo;
         }
 
         public IActionResult Index()
@@ -30,7 +32,7 @@ namespace Spotlight.Controllers
 
         public IActionResult News()
         {
-            return View();
+            return View(newsRepository.AllNewsPosts);
         }
 
         public IActionResult Privacy()

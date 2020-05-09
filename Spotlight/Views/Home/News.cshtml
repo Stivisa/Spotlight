@@ -3,5 +3,14 @@
     ViewData["Title"] = "News";
 }
 
-<h1>News</h1>
+@model IEnumerable<NewsPost>
+
+    <h1>News</h1>
+
+    @foreach (var n in Model) {
+        <div>
+            <h2>@n.PostHeadline</h2>
+            <div>@n.PostContent</div>
+        </div>
+    }
 

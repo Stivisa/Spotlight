@@ -750,7 +750,6 @@ C:\Users\Nikola\Desktop\Spotlight-master\Spotlight\bin\Debug\netcoreapp3.1\ru\Mi
 C:\Users\Nikola\Desktop\Spotlight-master\Spotlight\bin\Debug\netcoreapp3.1\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\Nikola\Desktop\Spotlight-master\Spotlight\bin\Debug\netcoreapp3.1\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\Nikola\Desktop\Spotlight-master\Spotlight\bin\Debug\netcoreapp3.1\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
-C:\Users\Nikola\Desktop\Spotlight-master\Spotlight\obj\Debug\netcoreapp3.1\Spotlight.csprojAssemblyReference.cache
 C:\Users\Nikola\Desktop\Spotlight-master\Spotlight\obj\Debug\netcoreapp3.1\Spotlight.RazorAssemblyInfo.cache
 C:\Users\Nikola\Desktop\Spotlight-master\Spotlight\obj\Debug\netcoreapp3.1\Spotlight.RazorAssemblyInfo.cs
 C:\Users\Nikola\Desktop\Spotlight-master\Spotlight\obj\Debug\netcoreapp3.1\Spotlight.AssemblyInfoInputs.cache
@@ -818,3 +817,8 @@ C:\Users\Nikola\Desktop\Spotlight-master\Spotlight\obj\Debug\netcoreapp3.1\Spotl
 C:\Users\Nikola\Desktop\Spotlight-master\Spotlight\obj\Debug\netcoreapp3.1\Razor\Views\Identity\Admin\Index.cshtml.g.cs
 C:\Users\Nikola\Desktop\Spotlight-master\Spotlight\obj\Debug\netcoreapp3.1\Razor\Views\Identity\Admin\Create.cshtml.g.cs
 C:\Users\Nikola\Desktop\Spotlight-master\Spotlight\obj\Debug\netcoreapp3.1\Razor\Views\Identity\Admin\Edit.cshtml.g.cs
+C:\Users\Nikola\Desktop\Spotlight-master\Spotlight\obj\Debug\netcoreapp3.1\Razor\Views\Identity\Account\Login.cshtml.g.cs
+C:\Users\Nikola\Desktop\Spotlight-master\Spotlight\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_LoginPartial.cshtml.g.cs
+C:\Users\Nikola\Desktop\Spotlight-master\Spotlight\obj\Debug\netcoreapp3.1\Spotlight.csprojAssemblyReference.cache
+C:\Users\Nikola\Desktop\Spotlight-master\Spotlight\obj\Debug\netcoreapp3.1\Razor\Views\Identity\Account\Register.cshtml.g.cs
+C:\Users\Nikola\Desktop\Spotlight-master\Spotlight\obj\Debug\netcoreapp3.1\Razor\Views\Identity\Account\Edit.cshtml.g.cs

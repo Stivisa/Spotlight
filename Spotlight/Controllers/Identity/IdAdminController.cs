@@ -45,7 +45,8 @@ namespace Spotlight.Controllers.Identity
                 = await userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Index");
+                    TempData["poruka"] = $"Successfully created";
+                    return RedirectToAction("Index", "IdAdmin");
                 }
                 else
                 {
@@ -67,7 +68,8 @@ namespace Spotlight.Controllers.Identity
                 IdentityResult result = await userManager.DeleteAsync(user);
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Index");
+                    TempData["poruka"] = $"Successfully deleted";
+                    return RedirectToAction("Index","IdAdmin");
                 }
                 else
                 {
@@ -97,7 +99,7 @@ namespace Spotlight.Controllers.Identity
             }
             else
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "IdAdmin");
             }
         }
 
@@ -136,7 +138,8 @@ namespace Spotlight.Controllers.Identity
                     IdentityResult result = await userManager.UpdateAsync(user);
                     if (result.Succeeded)
                     {
-                        return RedirectToAction("Index");
+                        TempData["poruka"] = $"Successfully updated";
+                        return RedirectToAction("Index", "IdAdmin");
                     }
                     else
                     {

@@ -11,7 +11,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
-using Microsoft.EntityFrameworkCore;
 using Spotlight.Models.Identity;
 
 namespace Spotlight
@@ -40,6 +39,8 @@ namespace Spotlight
                 })
                 .AddEntityFrameworkStores<AppIdentityDbContext>()
                 .AddDefaultTokenProviders();
+            //change defaul path for [authorize]
+            services.ConfigureApplicationCookie(opts => opts.LoginPath = "/Identity/IdAccount/Login");
 
             services.AddControllersWithViews();
             services.AddMvc(option => option.EnableEndpointRouting = false);

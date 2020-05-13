@@ -816,3 +816,5 @@ C:\Users\Nikola\Desktop\Spotlight-master\Spotlight\bin\Debug\netcoreapp3.1\Micro
 C:\Users\Nikola\Desktop\Spotlight-master\Spotlight\obj\Debug\netcoreapp3.1\Spotlight.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\Nikola\Desktop\Spotlight-master\Spotlight\obj\Debug\netcoreapp3.1\Spotlight.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\Nikola\Desktop\Spotlight-master\Spotlight\obj\Debug\netcoreapp3.1\Razor\Views\Identity\Admin\Index.cshtml.g.cs
+C:\Users\Nikola\Desktop\Spotlight-master\Spotlight\obj\Debug\netcoreapp3.1\Razor\Views\Identity\Admin\Create.cshtml.g.cs
+C:\Users\Nikola\Desktop\Spotlight-master\Spotlight\obj\Debug\netcoreapp3.1\Razor\Views\Identity\Admin\Edit.cshtml.g.cs

@@ -9,6 +9,7 @@ using Spotlight.Models;
 
 namespace Spotlight.Controllers
 {
+    //[Route("[controller]/[action]/{id?}")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

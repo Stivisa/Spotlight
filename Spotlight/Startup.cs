@@ -8,6 +8,10 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
+using Spotlight.Models.Identity;
 using Spotlight.Models;
 
 namespace Spotlight
@@ -19,15 +23,22 @@ namespace Spotlight
             Configuration = configuration;
         }
 
-
-
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddTransient<INewsPostRepository, MockNewsRepository>();
+            services.AddDbContext<AppIdentityDbContext>(options =>
+                options.UseSqlServer(
+                    Configuration.GetConnectionString("SpotlightIdentityDbContextConnection")));
+            services.AddIdentity<AppUser, IdentityRole>()
+                .AddEntityFrameworkStores<AppIdentityDbContext>()
+                .AddDefaultTokenProviders();
+
+			services.AddTransient<INewsPostRepository, MockNewsRepository>();
+
             services.AddControllersWithViews();
+            services.AddMvc(option => option.EnableEndpointRouting = false);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -45,17 +56,19 @@ namespace Spotlight
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
-            app.UseRouting();
+            app.UseStatusCodePages();
+            //app.UseRouting();
 
             app.UseAuthorization();
-
+            app.UseAuthentication();
+            app.UseMvcWithDefaultRoute();
+            /*
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
-            });
+            }); */
         }
     }
 }

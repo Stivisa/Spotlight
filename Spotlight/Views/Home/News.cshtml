@@ -3,5 +3,18 @@
     ViewData["Title"] = "News";
 }
 
-<h1>News</h1>
+@model IEnumerable<NewsPost>
+
+<button type="button" class="btn btn-outline-primary">Add a news post</button>
+
+<h1 class="display-3">News</h1>
+
+@foreach (var n in Model)
+{
+    <div>
+        <a class="mb-1 text-muted">@n.TimeOfPosting.ToString("MMMM d, yyyy")</a>
+        <h2 class="display-4">@n.PostHeadline</h2>
+        <div>@n.PostContent</div>
+    </div>
+}
 

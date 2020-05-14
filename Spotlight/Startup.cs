@@ -70,6 +70,7 @@ namespace Spotlight
             app.UseAuthorization();
             app.UseAuthentication();
             app.UseMvcWithDefaultRoute();
+            AppIdentityDbContext.CreateAdminAccount(app.ApplicationServices,Configuration).Wait();
             /*
             app.UseEndpoints(endpoints =>
             {

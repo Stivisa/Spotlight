@@ -32,7 +32,7 @@ namespace Spotlight.Controllers
 
         public IActionResult News()
         {
-            return View(newsRepository.AllNewsPosts);
+            return View(newsRepository.AllNewsPosts.OrderBy(post => post.TimeOfPosting).Reverse());
         }
 
         public IActionResult Privacy()

@@ -40,8 +40,10 @@ namespace Spotlight
                 })
                 .AddEntityFrameworkStores<AppIdentityDbContext>()
                 .AddDefaultTokenProviders();
+            //change defaul path for [authorize]
+            services.ConfigureApplicationCookie(opts => opts.LoginPath = "/Identity/IdAccount/Login");
 
-			services.AddTransient<INewsPostRepository, MockNewsRepository>();
+            services.AddTransient<INewsPostRepository, MockNewsRepository>();
 
             services.AddControllersWithViews();
             services.AddMvc(option => option.EnableEndpointRouting = false);

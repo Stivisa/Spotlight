@@ -8545,11 +8545,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Nikola\\Desktop\\New folder\\1.Spotlight-master28end-editdelete\\Spotlight\\Spotlight.csproj",
+      "projectUniqueName": "C:\\Users\\Nikola\\Desktop\\New folder\\2.Spotlight-master29CRUDAccAdmLOGIN\\Spotlight\\Spotlight.csproj",
       "projectName": "Spotlight",
-      "projectPath": "C:\\Users\\Nikola\\Desktop\\New folder\\1.Spotlight-master28end-editdelete\\Spotlight\\Spotlight.csproj",
+      "projectPath": "C:\\Users\\Nikola\\Desktop\\New folder\\2.Spotlight-master29CRUDAccAdmLOGIN\\Spotlight\\Spotlight.csproj",
       "packagesPath": "C:\\Users\\Nikola\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Nikola\\Desktop\\New folder\\1.Spotlight-master28end-editdelete\\Spotlight\\obj\\",
+      "outputPath": "C:\\Users\\Nikola\\Desktop\\New folder\\2.Spotlight-master29CRUDAccAdmLOGIN\\Spotlight\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Nikola\\AppData\\Roaming\\NuGet\\NuGet.Config",

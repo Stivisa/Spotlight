@@ -1,0 +1,26 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Spotlight.Models.Identity
+
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
+
+<ul class="navbar-nav">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <li class="nav-item">
+            <a id="manage" class="nav-link text-dark" asp-controller="IdAccount" asp-action="Edit"> Hello @UserManager.GetUserName(User)!</a>
+        </li>
+        <li class="nav-item">          
+            <a class="nav-link text-dark" id="logout" asp-controller="IdAccount" asp-action="Logout"><i class="fas fa-sign-out-alt"></i> Logout </a>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" id="register" asp-controller="IdAccount" asp-action="Register"><i class="fas fa-user-plus"></i> Register </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" id="login" asp-controller="IdAccount" asp-action="Login"><i class="fas fa-user-circle"></i> Login </a>
+        </li>
+    }
+</ul>

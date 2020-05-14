@@ -7,8 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Spotlight.Controllers.Identity
 {
-    
-    
+    [Authorize(Roles = "Organizacija")]
     [Route("Identity/[controller]/[action]/{id?}")]
     public class IdHomeController : Controller
     {

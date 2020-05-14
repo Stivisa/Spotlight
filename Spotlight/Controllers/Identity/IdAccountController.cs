@@ -176,5 +176,12 @@ namespace Spotlight.Controllers.Identity
             }
         }
 
+        [Route("/Account/AccessDenied/{id?}")]
+        [AllowAnonymous]
+        public IActionResult AccessDenied()
+        {
+            return View("~/Views/Identity/Account/AccessDenied.cshtml");
+        }
+
     }
 }

@@ -6,6 +6,6 @@ namespace Spotlight.Models
     {
         public string PostHeadline { get; set; }
         public string PostContent { get; set; }
-        public DateTime TimeOfPosting { get; set; }
+        public DateTime? TimeOfPosting { get; set; } = null;
     }
 }

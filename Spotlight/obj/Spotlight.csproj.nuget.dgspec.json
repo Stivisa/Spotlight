@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Nikola\\Desktop\\GITSpotlight\\Spotlight\\Spotlight\\Spotlight.csproj": {}
+    "C:\\Users\\j_dmi\\source\\repos\\Spotlight\\Spotlight\\Spotlight.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Nikola\\Desktop\\GITSpotlight\\Spotlight\\Spotlight\\Spotlight.csproj": {
+    "C:\\Users\\j_dmi\\source\\repos\\Spotlight\\Spotlight\\Spotlight.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Nikola\\Desktop\\GITSpotlight\\Spotlight\\Spotlight\\Spotlight.csproj",
+        "projectUniqueName": "C:\\Users\\j_dmi\\source\\repos\\Spotlight\\Spotlight\\Spotlight.csproj",
         "projectName": "Spotlight",
-        "projectPath": "C:\\Users\\Nikola\\Desktop\\GITSpotlight\\Spotlight\\Spotlight\\Spotlight.csproj",
-        "packagesPath": "C:\\Users\\Nikola\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Nikola\\Desktop\\GITSpotlight\\Spotlight\\Spotlight\\obj\\",
+        "projectPath": "C:\\Users\\j_dmi\\source\\repos\\Spotlight\\Spotlight\\Spotlight.csproj",
+        "packagesPath": "C:\\Users\\j_dmi\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\j_dmi\\source\\repos\\Spotlight\\Spotlight\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Nikola\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\j_dmi\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -68,7 +68,7 @@
             },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
-              "version": "[3.1.2, )"
+              "version": "[3.1.3, )"
             }
           },
           "imports": [

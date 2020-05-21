@@ -5,14 +5,34 @@
 
 @model IEnumerable<NewsPost>
 
-<button type="button" class="btn btn-outline-primary">Add a news post</button>
+<button class="btn btn-outline-primary" id="newPostButton" data-toggle="modal" data-target="#newPostModal">Add a news post</button>
 
-<h1 class="display-3">News</h1>
+<div id="newPostModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">New Post</h4>
+            </div>
+
+            <div class="modal-body">
+                <partial name="_AddNewPost" model="@new NewsPost()"/>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <h1 class="display-3">News</h1>
 
 @foreach (var n in Model)
 {
     <div>
-        <a class="mb-1 text-muted">@n.TimeOfPosting.ToString("MMMM d, yyyy")</a>
+        @if (n.TimeOfPosting.HasValue){
+            <a class="mb-1 text-muted">@n.TimeOfPosting.Value.ToString("MMMM d, yyyy")</a>
+        }
         <h2 class="display-4">@n.PostHeadline</h2>
         <div>@n.PostContent</div>
     </div>

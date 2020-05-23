@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Spotlight.Models.Identity;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Spotlight.Controllers.Identity
 {
@@ -13,17 +14,20 @@ namespace Spotlight.Controllers.Identity
     [Authorize]
     public class IdAccountController : Controller
     {
+        private RoleManager<IdentityRole> roleManager;
         private UserManager<AppUser> userManager;
         private SignInManager<AppUser> signInManager;
         private IUserValidator<AppUser> userValidator;
         private IPasswordValidator<AppUser> passwordValidator;
         private IPasswordHasher<AppUser> passwordHasher;
         public IdAccountController(UserManager<AppUser> userMgr,
+            RoleManager<IdentityRole> roleMgr,
             SignInManager<AppUser> signinMgr,
             IUserValidator<AppUser> userValid,
             IPasswordValidator<AppUser> passValid,
             IPasswordHasher<AppUser> passwordHash)
         {
+            roleManager = roleMgr;
             userManager = userMgr;
             signInManager = signinMgr;
             userValidator = userValid;
@@ -69,12 +73,24 @@ namespace Spotlight.Controllers.Identity
         }
 
         [AllowAnonymous]
-        public ViewResult Register() => View("~/Views/Identity/Account/Register.cshtml");
+        public ViewResult Register()
+        {
+            List<string> roles = roleManager.Roles.Select(x => x.Name).ToList();
+            roles.Remove("Admins");
+            List<SelectListItem> Roles = roles.Select(x => new SelectListItem() { Value = x, Text = x }).ToList();
+            ViewBag.ViewRoles = Roles;
+            return View("~/Views/Identity/Account/Register.cshtml");
+        }
 
         [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Register(RegisterModel model)
         {
+            //Console.WriteLine("Selected role check: "+model.Role);
+            List<string> roles = roleManager.Roles.Select(x => x.Name).ToList();
+            roles.Remove("Admins");
+            List<SelectListItem> Roles = roles.Select(x => new SelectListItem() { Value = x, Text = x }).ToList();
+            ViewBag.ViewRoles = Roles;
             if (ModelState.IsValid)
             {
                 AppUser user = new AppUser
@@ -92,6 +108,7 @@ namespace Spotlight.Controllers.Identity
                 = await userManager.CreateAsync(user, model.Password);              
                 if (result.Succeeded)
                 {
+                    await userManager.AddToRoleAsync(user, model.Role);
                     return RedirectToAction("Login", "IdAccount");
                 }
                 else

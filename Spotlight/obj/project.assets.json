@@ -8540,19 +8540,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\j_dmi\\.nuget\\packages\\": {}
+    "C:\\Users\\Nikola\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\j_dmi\\source\\repos\\Spotlight\\Spotlight\\Spotlight.csproj",
+      "projectUniqueName": "C:\\Users\\Nikola\\Desktop\\GITSpotlight\\Spotlight\\Spotlight\\Spotlight.csproj",
       "projectName": "Spotlight",
-      "projectPath": "C:\\Users\\j_dmi\\source\\repos\\Spotlight\\Spotlight\\Spotlight.csproj",
-      "packagesPath": "C:\\Users\\j_dmi\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\j_dmi\\source\\repos\\Spotlight\\Spotlight\\obj\\",
+      "projectPath": "C:\\Users\\Nikola\\Desktop\\GITSpotlight\\Spotlight\\Spotlight\\Spotlight.csproj",
+      "packagesPath": "C:\\Users\\Nikola\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Nikola\\Desktop\\GITSpotlight\\Spotlight\\Spotlight\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\j_dmi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Nikola\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

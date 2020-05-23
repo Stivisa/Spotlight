@@ -25,12 +25,19 @@
             </div>
             <div class="form-group">
                 <label asp-for="ConfirmPassword">Confirm password</label>
-                <div class="input-group" id="show_hide_password">
+                <div class="input-group" id="show_hide_password_confirm">
                     <input asp-for="ConfirmPassword" name="confirmpassword" class="form-control" type="password">
                     <div class="input-group-addon">
                         <a href=""><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
                     </div>
                 </div>
+            </div>
+            <div class="form-group dropdown">
+                <label asp-for="Role">Choose type of your profile:</label>
+                <select asp-for="Role" class="form-control btn btn-light dropdown-toggle" asp-items="@ViewBag.ViewRoles">
+                    <option disabled selected>--- SELECT ---</option>
+                </select>
+                </br>
             </div>
             <button type="submit" class="btn btn-primary">Create</button>
             <a asp-action="Index" class="btn btn-secondary">Cancel</a>

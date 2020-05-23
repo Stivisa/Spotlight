@@ -44,6 +44,18 @@ namespace Spotlight.Models.Identity
                     await userManager.AddToRoleAsync(user, role);
                 }
             }
+            if (await roleManager.FindByNameAsync("Organization") == null)
+            {
+                await roleManager.CreateAsync(new IdentityRole("Organization"));
+            }
+            if (await roleManager.FindByNameAsync("User common") == null)
+            {
+                await roleManager.CreateAsync(new IdentityRole("User common"));
+            }
+            if (await roleManager.FindByNameAsync("User help") == null)
+            {
+                await roleManager.CreateAsync(new IdentityRole("User help"));
+            }
         }
     }
 }

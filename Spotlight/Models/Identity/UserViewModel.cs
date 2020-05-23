@@ -35,6 +35,8 @@ namespace Spotlight.Models.Identity
         public string Password { get; set; }
         [Required]
         public string ConfirmPassword { get; set; }
+        [Required]
+        public string Role { get; set; }
     }
 
     public class RoleEditModel

@@ -39,9 +39,12 @@ namespace Spotlight.Models.Identity
                 };
                 IdentityResult result = await userManager
                 .CreateAsync(user, password);
+                var token = await userManager.GenerateEmailConfirmationTokenAsync(user);
                 if (result.Succeeded)
                 {
-                    await userManager.AddToRoleAsync(user, role);
+                    await userManager.AddToRoleAsync(user, role);                
+                    await userManager.ConfirmEmailAsync(user, token);
+                    Console.WriteLine("Admin created with confirmed email!");
                 }
             }
             if (await roleManager.FindByNameAsync("Organization") == null)

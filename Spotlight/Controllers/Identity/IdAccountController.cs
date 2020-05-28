@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Authorization;
 using Spotlight.Models.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Net.Mail;
+using Microsoft.Extensions.Configuration;
 
 namespace Spotlight.Controllers.Identity
 {
@@ -14,6 +16,7 @@ namespace Spotlight.Controllers.Identity
     [Authorize]
     public class IdAccountController : Controller
     {
+        private IConfiguration configuration;    
         private RoleManager<IdentityRole> roleManager;
         private UserManager<AppUser> userManager;
         private SignInManager<AppUser> signInManager;
@@ -23,6 +26,7 @@ namespace Spotlight.Controllers.Identity
         public IdAccountController(UserManager<AppUser> userMgr,
             RoleManager<IdentityRole> roleMgr,
             SignInManager<AppUser> signinMgr,
+            IConfiguration IConfig,
             IUserValidator<AppUser> userValid,
             IPasswordValidator<AppUser> passValid,
             IPasswordHasher<AppUser> passwordHash)
@@ -33,6 +37,7 @@ namespace Spotlight.Controllers.Identity
             userValidator = userValid;
             passwordValidator = passValid;
             passwordHasher = passwordHash;
+            configuration = IConfig;
         }
 
         [AllowAnonymous]
@@ -49,6 +54,13 @@ namespace Spotlight.Controllers.Identity
             if (ModelState.IsValid)
             {
                 AppUser user = await userManager.FindByEmailAsync(details.Email);
+
+                if (!await userManager.IsEmailConfirmedAsync(user))
+                {
+                    ModelState.AddModelError("", "You must have a confirmed email to log on.");
+                    return View("~/Views/Identity/Account/Login.cshtml", details);
+                }
+
                 if (user != null)
                 {
                     await signInManager.SignOutAsync();
@@ -108,8 +120,12 @@ namespace Spotlight.Controllers.Identity
                 = await userManager.CreateAsync(user, model.Password);              
                 if (result.Succeeded)
                 {
+                    ViewBag.ErrorTitle = "Registration Successful";
+                    this.SendEmail(user);             
+                    
                     await userManager.AddToRoleAsync(user, model.Role);
-                    return RedirectToAction("Login", "IdAccount");
+                    //return RedirectToAction("Login", "IdAccount");
+                    return View("~/Views/Identity/Account/EmailConfirm.cshtml");
                 }
                 else
                 {
@@ -200,5 +216,56 @@ namespace Spotlight.Controllers.Identity
             return View("~/Views/Identity/Account/AccessDenied.cshtml");
         }
 
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> ConfirmEmail([FromQuery]string userId, [FromQuery]string token)
+        {
+            if(userId ==null || token ==null)
+                return RedirectToAction("Index", "Home");
+
+            var user = await userManager.FindByIdAsync(userId);
+
+            if (user == null) {
+                ViewBag.ErrorTitle = "Not Found";
+                ViewBag.ErrorMessage = "The User ID " + userId + " is invalid";
+                return View("~/Views/Identity/Account/EmailConfirm.cshtml");
+            }
+            var result = await userManager.ConfirmEmailAsync(user,token);
+
+            ViewBag.ErrorTitle = "You confirmed your email successfully";
+            ViewBag.ErrorMessage = "Email: " + user.Email + " is confirmed. You can now login.";
+
+            return View("~/Views/Identity/Account/EmailConfirm.cshtml");
+        }
+
+        public async void SendEmail(AppUser user) {       
+            var token = await userManager.GenerateEmailConfirmationTokenAsync(user);
+            var confirmationLink = Url.Action("ConfirmEmail", "IdAccount",
+                new { userId = user.Id, token = token }, Request.Scheme);
+            Console.WriteLine("CONFIRMATION LINK: " + confirmationLink);
+
+            SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
+            smtpClient.EnableSsl = true;
+
+            smtpClient.UseDefaultCredentials = true;
+            smtpClient.Credentials = new System.Net.NetworkCredential(configuration["AppEmail:Email"], configuration["AppEmail:Password"]);
+            smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
+
+            //configuration["AdminUser:Name"]
+            MailMessage mailMessage = new MailMessage(configuration["AppEmail:Email"], user.Email);
+            mailMessage.Subject = "Spotlight: Confirm your email!";
+            mailMessage.Body = "Please confirm your email, by cliking on the confirmation link: " + confirmationLink;
+            mailMessage.IsBodyHtml = false;
+            try
+            {              
+                smtpClient.Send(mailMessage);
+                Console.WriteLine("EMAIL SENT to: " + user.Email);
+                ViewBag.ErrorMessage = "Before you can login, please confirm your email, by cliking on the confirmation link. (HINT: link is also in console)";
+            }
+            catch (SmtpException ex)
+            {
+                Console.WriteLine("SMTP ERROR: " + ex.ToString());
+            }          
+        }
     }
 }

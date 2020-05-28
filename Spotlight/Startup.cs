@@ -36,7 +36,7 @@ namespace Spotlight
                     options.SignIn.RequireConfirmedAccount = false;
                     options.Password.RequireNonAlphanumeric = false;
                     options.User.RequireUniqueEmail = true;
-                   
+                    options.SignIn.RequireConfirmedEmail = true;           
                 })
                 .AddEntityFrameworkStores<AppIdentityDbContext>()
                 .AddDefaultTokenProviders();

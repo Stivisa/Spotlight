@@ -44,6 +44,7 @@ namespace Spotlight
             services.ConfigureApplicationCookie(opts => opts.LoginPath = "/Identity/IdAccount/Login");
 
             services.AddTransient<INewsPostRepository, MockNewsRepository>();
+            services.AddTransient<IListingRepository, MockListRepository>();
 
             services.AddControllersWithViews();
             services.AddMvc(option => option.EnableEndpointRouting = false);

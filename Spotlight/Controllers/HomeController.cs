@@ -13,11 +13,13 @@ namespace Spotlight.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private INewsPostRepository newsRepository;
+        private IListingRepository listingRepository;
 
-        public HomeController(ILogger<HomeController> logger, INewsPostRepository repo)
+        public HomeController(ILogger<HomeController> logger, INewsPostRepository newsRepo, IListingRepository listingRepo)
         {
             _logger = logger;
-            newsRepository = repo;
+            newsRepository = newsRepo;
+            listingRepository = listingRepo;
         }
 
         public IActionResult Index()
@@ -27,7 +29,7 @@ namespace Spotlight.Controllers
 
         public IActionResult Listings()
         {
-            return View();
+            return View(listingRepository.AllListings.OrderBy(post => post.TimeOfPosting).Reverse());
         }
 
         public IActionResult News()

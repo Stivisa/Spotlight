@@ -27,8 +27,16 @@ namespace Spotlight.Controllers.Identity
             passwordValidator = passValid;
             passwordHasher = passwordHash;
         }
-        public ViewResult Index() => View("~/Views/Identity/Admin/Index.cshtml",userManager.Users);
-
+        //public ViewResult Index() => View("~/Views/Identity/Admin/Index.cshtml",userManager.Users);
+        public ViewResult Index(string search =null)
+        {
+            if (!string.IsNullOrEmpty(search))
+            {
+                //usersSearched = userManager.Users.Where(x => x.UserName.Contains(search));
+                return View("~/Views/Identity/Admin/Index.cshtml", userManager.Users.Where(x => x.UserName.StartsWith(search)));
+            }        
+            return View("~/Views/Identity/Admin/Index.cshtml", userManager.Users);           
+        }
         public ViewResult Create() => View("~/Views/Identity/Admin/Create.cshtml");
 
         [HttpPost]

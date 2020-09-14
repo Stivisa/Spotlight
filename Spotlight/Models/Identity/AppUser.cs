@@ -8,7 +8,12 @@ namespace Spotlight.Models.Identity
 {
     public class AppUser : IdentityUser
     {
-        // no additional members are required
-        // for basic Identity installation
+        //additional members for basic Identity installation
+        // 1 - * AppUser || Message
+        public AppUser()
+        {
+            Messages = new HashSet<Message>();
+        }
+        public virtual ICollection<Message> Messages { get; set; }
     }
 }

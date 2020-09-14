@@ -15,6 +15,8 @@ namespace Spotlight.Models.Identity
         public AppIdentityDbContext(DbContextOptions<AppIdentityDbContext> options)
         : base(options) { }
 
+        public DbSet<Message> Messages { get; set; }
+
         public static async Task CreateAdminAccount(IServiceProvider serviceProvider,
             IConfiguration configuration)
         {
@@ -59,6 +61,15 @@ namespace Spotlight.Models.Identity
             {
                 await roleManager.CreateAsync(new IdentityRole("User help"));
             }
+        }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+            builder.Entity<Message>()
+                .HasOne<AppUser>(a => a.Sender)
+                .WithMany(d => d.Messages)
+                .HasForeignKey(d => d.UserID);
         }
     }
 }

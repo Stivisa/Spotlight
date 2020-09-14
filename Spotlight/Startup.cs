@@ -13,6 +13,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Spotlight.Models.Identity;
 using Spotlight.Models;
+using Microsoft.AspNetCore.SignalR;
+using Spotlight.Hubs;
 
 namespace Spotlight
 {
@@ -48,6 +50,8 @@ namespace Spotlight
 
             services.AddControllersWithViews();
             services.AddMvc(option => option.EnableEndpointRouting = false);
+
+            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -66,7 +70,7 @@ namespace Spotlight
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseStatusCodePages();
-            //app.UseRouting();
+            app.UseRouting();
 
             app.UseAuthorization();
             app.UseAuthentication();
@@ -79,6 +83,14 @@ namespace Spotlight
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             }); */
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapHub<ChatHub>("/IdHome/Index");
+            });
+            /*app.UseSignalR(routes =>
+            {
+                routes.MapHub<ChatHub>("/ChatHub");
+            });*/
         }
     }
 }

@@ -52,7 +52,6 @@ namespace Spotlight.Controllers
         public IActionResult AddNewPost(NewsPost newPost)
         {
             newPost.TimeOfPosting = DateTime.Now;
-            //TODO: add new post to repository
             newsRepository.AddNews(newPost);
 
             return RedirectToAction("News");

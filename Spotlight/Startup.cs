@@ -15,6 +15,8 @@ using Spotlight.Models.Identity;
 using Spotlight.Models;
 using Microsoft.AspNetCore.SignalR;
 using Spotlight.Hubs;
+using Spotlight.Models.News;
+using Spotlight.Models.Listings;
 
 namespace Spotlight
 {
@@ -45,8 +47,11 @@ namespace Spotlight
             //change defaul path for [authorize]
             services.ConfigureApplicationCookie(opts => opts.LoginPath = "/Identity/IdAccount/Login");
 
-            services.AddTransient<INewsPostRepository, MockNewsRepository>();
-            services.AddTransient<IListingRepository, MockListRepository>();
+            services.AddDbContext<NewsDbContext>(options => options.UseSqlServer(Configuration["Data:SpotlightNews:ConnectionString"]));
+            services.AddTransient<INewsPostRepository, EFNewsRepository>();
+
+            services.AddDbContext<ListingDbContext>(options => options.UseSqlServer(Configuration["Data:SpotlightListings:ConnectionString"]));
+            services.AddTransient<IListingRepository, EFListingRepository>();
 
             services.AddControllersWithViews();
             services.AddMvc(option => option.EnableEndpointRouting = false);
@@ -67,6 +72,10 @@ namespace Spotlight
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            NewsSeedData.EnsurePopulated(app);
+            ListingsSeedData.EnsurePopulated(app);
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseStatusCodePages();

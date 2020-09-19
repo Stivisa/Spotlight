@@ -21,9 +21,6 @@
                     <partial name="_LoginPartial.cshtml">
                         <ul class="navbar-nav flex-grow-1">
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                            </li>
-                            <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Listings">Listings</a>
                             </li>
                             <li class="nav-item">
@@ -32,6 +29,12 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Ehome" asp-action="Index">Events</a>
                             </li>
+                            @if (this.User.Identity.IsAuthenticated)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="IdHome" asp-action="Index">Group chat</a>
+                                </li>
+                            }
                             <li>
                                 @if (this.User.IsInRole("Admins"))
                                 {

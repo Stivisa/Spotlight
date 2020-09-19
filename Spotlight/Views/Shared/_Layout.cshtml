@@ -29,14 +29,17 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="News">News</a>
                             </li>
-                            <li>
-                            @if (this.User.Identity.IsAuthenticated)
-                            {
-                                <a class="nav-link text-dark" asp-controller="IdAdmin" asp-action="Index">Users</a>
-                            }
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Ehome" asp-action="Index">Events</a>
                             </li>
-							<li>
-                                @if (this.User.Identity.IsAuthenticated)
+                            <li>
+                                @if (this.User.IsInRole("Admins"))
+                                {
+                                    <a class="nav-link text-dark" asp-controller="IdAdmin" asp-action="Index">Users</a>
+                                }
+                            </li>
+                            <li>
+                                @if (this.User.IsInRole("Admins"))
                                 {
                                     <a class="nav-link text-dark" asp-controller="RoleAdmin" asp-action="Index">Roles</a>
                                 }

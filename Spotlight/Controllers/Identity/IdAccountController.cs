@@ -137,7 +137,7 @@ namespace Spotlight.Controllers.Identity
             }
             return View("~/Views/Identity/Account/Register.cshtml",model);
         }
-
+        [Authorize]
         public async Task<IActionResult> Edit()
         {
             AppUser user = await userManager.FindByNameAsync(User.Identity.Name);
@@ -150,7 +150,7 @@ namespace Spotlight.Controllers.Identity
                 return RedirectToAction("Index", "Home");
             }
         }
-
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Edit(string username, string email, string password)
         {

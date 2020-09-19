@@ -17,6 +17,7 @@ using Microsoft.AspNetCore.SignalR;
 using Spotlight.Hubs;
 using Spotlight.Models.News;
 using Spotlight.Models.Listings;
+using Spotlight.Models.Event;
 
 namespace Spotlight
 {
@@ -53,6 +54,9 @@ namespace Spotlight
             services.AddDbContext<ListingDbContext>(options => options.UseSqlServer(Configuration["Data:SpotlightListings:ConnectionString"]));
             services.AddTransient<IListingRepository, EFListingRepository>();
 
+            services.AddDbContext<EventDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SpotlightEventDbContextConnection")));
+            services.AddTransient<IEventRepository, EFEventRepository>();
+
             services.AddControllersWithViews();
             services.AddMvc(option => option.EnableEndpointRouting = false);
 
@@ -75,6 +79,7 @@ namespace Spotlight
 
             NewsSeedData.EnsurePopulated(app);
             ListingsSeedData.EnsurePopulated(app);
+            EventSeedData.EnsurePopulated(app);
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

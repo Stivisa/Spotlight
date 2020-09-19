@@ -1,0 +1,15 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model IEnumerable<Event>
+@foreach (var p in Model.OrderByDescending(m => m.Date))
+{
+    <div>
+        <h3>@p.Header</h3>
+        @p.Description
+        <h4>@p.Category</h4>
+        @p.Date
+    </div>
+}

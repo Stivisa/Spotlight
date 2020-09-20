@@ -18,16 +18,22 @@ namespace Spotlight.Controllers.Event
         {
             repository = repo;
         }
-        public ViewResult Index(int currentPage = 1)
+        [HttpGet]
+        public ViewResult Index(string category, int currentPage = 1)
         {
+            Console.WriteLine("OOO: " + category);
             return View("~/Views/Event/Index.cshtml", new ItemsListViewModel {
-                Events = repository.Events.OrderByDescending(m => m.Date).Skip((currentPage - 1)* PageSize).Take(PageSize),
+                Events = repository.Events.Where(p => category == null || p.Category == category).OrderByDescending(m => m.Date).Skip((currentPage - 1)* PageSize).Take(PageSize),
                 PagingInfo = new PagingInfo
                 {
                     CurrentPage = currentPage,
                     ItemsPerPage = PageSize,
-                    TotalItems = repository.Events.Count()
-                }
+                    TotalItems = category == null ?
+                        repository.Events.Count() :
+                        repository.Events.Where(e =>
+                            e.Category == category).Count()
+                },
+                CurrentCategory = category
             });
         }
     }

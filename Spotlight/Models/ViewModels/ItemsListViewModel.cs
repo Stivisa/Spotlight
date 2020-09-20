@@ -10,5 +10,6 @@ namespace Spotlight.Models.ViewModels
     {
         public IEnumerable<Models.Event.Event> Events { get; set; }
         public PagingInfo PagingInfo { get; set; }
+        public string CurrentCategory { get; set; }
     }
 }

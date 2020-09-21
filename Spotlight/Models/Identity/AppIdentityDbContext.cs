@@ -69,6 +69,7 @@ namespace Spotlight.Models.Identity
             builder.Entity<Message>()
                 .HasOne<AppUser>(a => a.Sender)
                 .WithMany(d => d.Messages)
+                .OnDelete(DeleteBehavior.SetNull)
                 .HasForeignKey(d => d.UserID);
         }
     }

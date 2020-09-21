@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Spotlight.Models.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Spotlight.Controllers.Identity
 {
+    [Authorize(Roles = "Admins")]
     [Route("Identity/[controller]/[action]/{id?}")]
     public class RoleAdminController : Controller
     {

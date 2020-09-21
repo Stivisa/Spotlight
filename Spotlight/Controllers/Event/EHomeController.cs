@@ -21,7 +21,7 @@ namespace Spotlight.Controllers.Event
         [HttpGet]
         public ViewResult Index(string category, int currentPage = 1)
         {
-            Console.WriteLine("OOO: " + category);
+            //Console.WriteLine("OOO: " + category);
             return View("~/Views/Event/Index.cshtml", new ItemsListViewModel {
                 Events = repository.Events.Where(p => category == null || p.Category == category).OrderByDescending(m => m.Date).Skip((currentPage - 1)* PageSize).Take(PageSize),
                 PagingInfo = new PagingInfo

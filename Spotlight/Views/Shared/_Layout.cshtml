@@ -35,16 +35,36 @@
                                     <a class="nav-link text-dark" asp-area="" asp-controller="IdHome" asp-action="Index">Group chat</a>
                                 </li>
                             }
-                            <li>
+                            @if (this.User.Identity.IsAuthenticated)
+                            {
+                                <li class="nav-item">
+                                    <div class="btn-group">
+                                        <a class="nav-link text-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Manage
+                                        </a>
+                                        <div class="dropdown-menu">
+                                            <a class="nav-link text-dark" asp-controller="EAdmin" asp-action="Index">Events</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="nav-link text-dark">Listings</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="nav-link text-dark">News</a>
+                                        </div>
+                                    </div>
+                                </li>
+                            }
+                            <li class="nav-item">
                                 @if (this.User.IsInRole("Admins"))
                                 {
-                                    <a class="nav-link text-dark" asp-controller="IdAdmin" asp-action="Index">Users</a>
-                                }
-                            </li>
-                            <li>
-                                @if (this.User.IsInRole("Admins"))
-                                {
-                                    <a class="nav-link text-dark" asp-controller="RoleAdmin" asp-action="Index">Roles</a>
+                                    <div class="btn-group">
+                                        <a class="nav-link text-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Admin
+                                        </a>
+                                        <div class="dropdown-menu">
+                                            <a class="nav-link text-dark" asp-controller="IdAdmin" asp-action="Index">Users</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="nav-link text-dark" asp-controller="RoleAdmin" asp-action="Index">Roles</a>
+                                        </div>
+                                    </div>
                                 }
                             </li>
                         </ul>

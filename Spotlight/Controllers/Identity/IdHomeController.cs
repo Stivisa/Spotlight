@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Spotlight.Controllers.Identity
 {
-    //[Authorize(Roles = "Organizacija")]
+    [Authorize]
     [Route("Identity/[controller]/[action]/{id?}")]
     public class IdHomeController : Controller
     {

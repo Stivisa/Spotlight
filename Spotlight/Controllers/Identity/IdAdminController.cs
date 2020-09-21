@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Spotlight.Models.Identity;
@@ -10,6 +11,7 @@ using Spotlight.Models.Identity;
 
 namespace Spotlight.Controllers.Identity
 {
+    [Authorize(Roles = "Admins")]
     [Route("Identity/[controller]/[action]/{id?}")]
     public class IdAdminController : Controller
     {

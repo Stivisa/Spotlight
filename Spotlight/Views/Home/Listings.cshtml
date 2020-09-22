@@ -3,7 +3,7 @@
     ViewData["Title"] = "Listing";
 }
 
-@model IEnumerable<Listing>
+@model ListingViewModel
 
 <button class="btn btn-outline-primary" id="newPostButton" data-toggle="modal" data-target="#newPostModal">Add a listing</button>
 
@@ -27,7 +27,7 @@
 
 <h1 class="display-3">Active Listings</h1>
 
-@foreach (var n in Model)
+@foreach (var n in Model.Listings)
 {
     <div>
         @if (n.TimeOfPosting.HasValue)
@@ -38,4 +38,10 @@
         <div>@n.PostContent</div>
     </div>
 }
+
+<div page-model="@Model.PagingInfo" asp-action="Listings"
+     page-classes-enabled="true"
+     page-class="btn" page-class-normal="btn-secondary"
+     page-class-selected="btn-primary" class="btn-group pull-right m-1">
+</div>
 

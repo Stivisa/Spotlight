@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Spotlight.Models;
+using Spotlight.Models.ViewModels;
 
 namespace Spotlight.Controllers
 {
@@ -14,6 +15,8 @@ namespace Spotlight.Controllers
         private readonly ILogger<HomeController> _logger;
         private INewsPostRepository newsRepository;
         private IListingRepository listingRepository;
+
+        public int pageSize = 4;
 
         public HomeController(ILogger<HomeController> logger, INewsPostRepository newsRepo, IListingRepository listingRepo)
         {
@@ -27,14 +30,35 @@ namespace Spotlight.Controllers
             return View();
         }
 
-        public IActionResult Listings()
+        public IActionResult Listings(int currentPage = 1)
         {
-            return View(listingRepository.AllListings.OrderBy(post => post.TimeOfPosting).Reverse());
+            return View(new ListingViewModel {
+                Listings = listingRepository.AllListings.OrderByDescending(l => l.TimeOfPosting)
+                                                        .Skip((currentPage - 1) * pageSize)
+                                                        .Take(pageSize),
+                PagingInfo = new PagingInfo
+                {
+                    CurrentPage = currentPage,
+                    ItemsPerPage = pageSize,
+                    TotalItems = listingRepository.AllListings.Count()
+                },
+            });;
         }
 
-        public IActionResult News()
+        public IActionResult News(int currentPage = 1)
         {
-            return View(newsRepository.AllNewsPosts.OrderBy(post => post.TimeOfPosting).Reverse());
+            return View(new NewsPostViewModel
+            {
+                NewsPosts = newsRepository.AllNewsPosts.OrderByDescending(n => n.TimeOfPosting)
+                                                       .Skip((currentPage - 1) * pageSize)
+                                                       .Take(pageSize),
+                PagingInfo = new PagingInfo
+                {
+                    CurrentPage = currentPage,
+                    ItemsPerPage = pageSize,
+                    TotalItems = newsRepository.AllNewsPosts.Count()
+                },
+            }); ;
         }
 
         public IActionResult Privacy()

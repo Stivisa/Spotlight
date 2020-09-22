@@ -3,9 +3,14 @@
     ViewData["Title"] = "News";
 }
 
-@model IEnumerable<NewsPost>
+@model NewsPostViewModel
 
-<button class="btn btn-outline-primary" id="newPostButton" data-toggle="modal" data-target="#newPostModal">Add a news post</button>
+<div class="d-flex justify-content-between">
+    <h1 class="display-3">News</h1>
+    <div class="align-self-center">
+        <button class="btn btn-outline-primary float-right" id="newPostButton" data-toggle="modal" data-target="#newPostModal">Add a news post</button>
+    </div>
+</div>
 
 <div id="newPostModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
@@ -15,7 +20,7 @@
             </div>
 
             <div class="modal-body">
-                <partial name="_AddNewPost" model="@new NewsPost()"/>
+                <partial name="_AddNewPost" model="@new NewsPost()" />
             </div>
 
             <div class="modal-footer">
@@ -25,12 +30,11 @@
     </div>
 </div>
 
-    <h1 class="display-3">News</h1>
-
-@foreach (var n in Model)
+@foreach (var n in Model.NewsPosts)
 {
     <div>
-        @if (n.TimeOfPosting.HasValue){
+        @if (n.TimeOfPosting.HasValue)
+        {
             <a class="mb-1 text-muted">@n.TimeOfPosting.Value.ToString("MMMM d, yyyy")</a>
         }
         <h2 class="display-4">@n.PostHeadline</h2>
@@ -38,3 +42,8 @@
     </div>
 }
 
+<div page-model="@Model.PagingInfo" asp-action="News"
+     page-classes-enabled="true"
+     page-class="btn" page-class-normal="btn-secondary"
+     page-class-selected="btn-primary" class="btn-group pull-right m-1">
+</div>

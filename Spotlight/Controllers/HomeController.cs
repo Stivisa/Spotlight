@@ -32,10 +32,10 @@ namespace Spotlight.Controllers
 
         public IActionResult Listings(int currentPage = 1)
         {
-            //return View(listingRepository.AllListings.OrderBy(post => post.TimeOfPosting).Reverse());
-
             return View(new ListingViewModel {
-                Listings = listingRepository.AllListings.OrderByDescending(l => l.TimeOfPosting).Skip((currentPage - 1) * pageSize).Take(pageSize),
+                Listings = listingRepository.AllListings.OrderByDescending(l => l.TimeOfPosting)
+                                                        .Skip((currentPage - 1) * pageSize)
+                                                        .Take(pageSize),
                 PagingInfo = new PagingInfo
                 {
                     CurrentPage = currentPage,
@@ -45,9 +45,20 @@ namespace Spotlight.Controllers
             });;
         }
 
-        public IActionResult News()
+        public IActionResult News(int currentPage = 1)
         {
-            return View(newsRepository.AllNewsPosts.OrderBy(post => post.TimeOfPosting).Reverse());
+            return View(new NewsPostViewModel
+            {
+                NewsPosts = newsRepository.AllNewsPosts.OrderByDescending(n => n.TimeOfPosting)
+                                                       .Skip((currentPage - 1) * pageSize)
+                                                       .Take(pageSize),
+                PagingInfo = new PagingInfo
+                {
+                    CurrentPage = currentPage,
+                    ItemsPerPage = pageSize,
+                    TotalItems = newsRepository.AllNewsPosts.Count()
+                },
+            }); ;
         }
 
         public IActionResult Privacy()

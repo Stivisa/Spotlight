@@ -10,7 +10,7 @@ using Spotlight.Models.Identity;
 namespace Spotlight.Migrations.IdentityDb
 {
     [DbContext(typeof(AppIdentityDbContext))]
-    [Migration("20200511144518_Identity")]
+    [Migration("20200925174528_Identity")]
     partial class Identity
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -217,6 +217,32 @@ namespace Spotlight.Migrations.IdentityDb
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("Spotlight.Models.Identity.Message", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Text")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserID")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("When")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserID");
+
+                    b.ToTable("Messages");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -266,6 +292,14 @@ namespace Spotlight.Migrations.IdentityDb
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Spotlight.Models.Identity.Message", b =>
+                {
+                    b.HasOne("Spotlight.Models.Identity.AppUser", "Sender")
+                        .WithMany("Messages")
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.SetNull);
                 });
 #pragma warning restore 612, 618
         }

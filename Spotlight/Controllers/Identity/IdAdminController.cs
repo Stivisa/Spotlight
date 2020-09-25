@@ -55,6 +55,10 @@ namespace Spotlight.Controllers.Identity
                 = await userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    AppUser userConfirm = await userManager.FindByNameAsync(model.Name);
+                    var token = await userManager.GenerateEmailConfirmationTokenAsync(userConfirm);
+                    var confirm = await userManager.ConfirmEmailAsync(userConfirm, token);
+
                     TempData["poruka"] = $"Successfully created";
                     return RedirectToAction("Index", "IdAdmin");
                 }

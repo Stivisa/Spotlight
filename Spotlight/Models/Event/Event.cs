@@ -19,7 +19,10 @@ namespace Spotlight.Models.Event
         public DateTime Date { get; set; }
 
         [Required(ErrorMessage = "Please specify a category")]
-        public string Category { get; set; }        
+        public string Category { get; set; }
+
+        public string UserName { get; set; }
+        public string UserID { get; set; }
 
         public Event()
         {

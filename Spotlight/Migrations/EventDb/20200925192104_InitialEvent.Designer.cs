@@ -10,7 +10,7 @@ using Spotlight.Models.Event;
 namespace Spotlight.Migrations.EventDb
 {
     [DbContext(typeof(EventDbContext))]
-    [Migration("20200919140718_InitialEvent")]
+    [Migration("20200925192104_InitialEvent")]
     partial class InitialEvent
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -29,15 +29,24 @@ namespace Spotlight.Migrations.EventDb
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Category")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Header")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserID")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserName")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("EventID");

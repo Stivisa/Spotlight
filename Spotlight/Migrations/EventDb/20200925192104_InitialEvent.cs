@@ -13,10 +13,12 @@ namespace Spotlight.Migrations.EventDb
                 {
                     EventID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Header = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true),
+                    Header = table.Column<string>(nullable: false),
+                    Description = table.Column<string>(nullable: false),
                     Date = table.Column<DateTime>(nullable: false),
-                    Category = table.Column<string>(nullable: true)
+                    Category = table.Column<string>(nullable: false),
+                    UserName = table.Column<string>(nullable: true),
+                    UserID = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

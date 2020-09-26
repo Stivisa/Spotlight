@@ -26,6 +26,12 @@ namespace Spotlight.Migrations.ListingDb
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("CurrentDonationValue")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DonationQuote")
+                        .HasColumnType("int");
+
                     b.Property<string>("PostContent")
                         .HasColumnType("nvarchar(max)");
 

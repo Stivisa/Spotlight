@@ -11,5 +11,6 @@ namespace Spotlight.Models.Listings
         public ListingDbContext(DbContextOptions<ListingDbContext> options) : base(options) { }
 
         public DbSet<Listing> AllListings { get; set; }
+
     }
 }

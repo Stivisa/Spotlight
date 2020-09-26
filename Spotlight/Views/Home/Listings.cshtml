@@ -3,24 +3,26 @@
     ViewData["Title"] = "Listing";
 }
 
+@using Spotlight.Models.Listings;
+
 @model ListingViewModel
 
 <div class="d-flex justify-content-between">
     <h1 class="display-3">Active Listings</h1>
     <div class="align-self-center">
-        <button class="btn btn-outline-primary float-right" id="newPostButton" data-toggle="modal" data-target="#newPostModal">Add a listing</button>
+        <button class="btn btn-outline-primary float-right" data-toggle="modal" data-target="#newListingModal">Add a listing</button>
     </div>
 </div>
 
-<div id="newPostModal" class="modal fade" role="dialog">
+<div id="newListingModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">New Post</h4>
+                <h4 class="modal-title">New Listing</h4>
             </div>
 
             <div class="modal-body">
-                <partial name="_AddNewPost" model="@new Listing()" />
+                <partial name="_AddNewListing" model="@new Listing()" />
             </div>
 
             <div class="modal-footer">
@@ -30,15 +32,42 @@
     </div>
 </div>
 
-@foreach (var n in Model.Listings)
+<script src="https://www.paypal.com/sdk/js?client-id=Abq8e3aVpHpJXmLFOq2jmoAGokid1hNSzPyWwDgRFF0Z90JDGOAgy0iKyxqIAwQz-OYQTU9GjVeAhOxg">
+</script>
+
+@foreach (var l in Model.Listings)
 {
     <div>
-        @if (n.TimeOfPosting.HasValue)
+        @if (l.TimeOfPosting.HasValue)
         {
-            <a class="mb-1 text-muted">@n.TimeOfPosting.Value.ToString("MMMM d, yyyy")</a>
+            <a class="mb-1 text-muted">@l.TimeOfPosting.Value.ToString("MMMM d, yyyy")</a>
         }
-        <h2 class="display-4">@n.PostHeadline</h2>
-        <div>@n.PostContent</div>
+        <h2 class="display-4">@l.PostHeadline</h2>
+        <div>@l.PostContent</div>
+
+        <div class="progress">
+            <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: @(100*l.CurrentDonationValue / l.DonationQuote)%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+
+        <button class="btn btn-outline-success" data-toggle="modal" data-target='#@("donation_modal_" + l.id)'>Donate</button>
+
+        <div id='@("donation_modal_" + l.id)' class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Make A Donation</h4>
+                    </div>
+
+                    <div class="modal-body">
+                        <partial name="_DonationPartial" model="@(new Donation() { listing = l })" />
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 }
 

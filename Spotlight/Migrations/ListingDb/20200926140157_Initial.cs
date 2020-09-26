@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Spotlight.Migrations.ListingDb
 {
-    public partial class nikola : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -15,7 +15,9 @@ namespace Spotlight.Migrations.ListingDb
                         .Annotation("SqlServer:Identity", "1, 1"),
                     PostHeadline = table.Column<string>(nullable: true),
                     PostContent = table.Column<string>(nullable: true),
-                    TimeOfPosting = table.Column<DateTime>(nullable: true)
+                    TimeOfPosting = table.Column<DateTime>(nullable: true),
+                    DonationQuote = table.Column<int>(nullable: false),
+                    CurrentDonationValue = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {

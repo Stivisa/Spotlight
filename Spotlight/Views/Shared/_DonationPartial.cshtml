@@ -1,0 +1,47 @@
+﻿@using Spotlight.Models.Listings
+
+@model Donation
+
+<form id='@("donationForm" + Model.listing.id)' asp-controller="Home" asp-action="MakeDonation" method="post">
+    <div class="form-group">
+        <input class="form-control" id="donationValue" asp-for="value">
+    </div>
+
+    <div class="form-group">
+        <input class="form-control d-none" asp-for="listing.id" value="@Model.listing.id" />
+    </div>
+
+    <div class="form-group">
+        <button id='@("submit_" + Model.listing.id)' type="submit" class="btn btn-primary d-none"></button>
+    </div>
+</form>
+
+<div id='@("lid_" + Model.listing.id)'></div>
+
+<script type="text/javascript">
+    paypal.Buttons({
+        style: {
+            size: 'small',
+            color: 'gold',
+            shape: 'pill',
+            label: 'checkout'
+        },
+
+        createOrder: function (data, actions) {
+                return actions.order.create({
+                purchase_units: [{
+                    amount: {
+                        value: document.getElementById("donationValue").value
+                        }
+                    }]
+                });
+        },
+
+        onApprove: function (data, actions) {
+            // This function captures the funds from the transaction.
+            return actions.order.capture().then(function (details) {
+                document.getElementById('@("submit_" + Model.listing.id)').click();
+            });
+        }
+    }).render('#@("lid_" + Model.listing.id)');
+</script>

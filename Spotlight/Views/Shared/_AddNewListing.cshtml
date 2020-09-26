@@ -1,0 +1,19 @@
+﻿@model Listing
+
+<form asp-controller="Home" asp-action="AddNewListing" method="post">
+    <div class="form-group">
+        <input class="form-control" id="listingHeadline" placeholder="Your Headline" asp-for="PostHeadline">
+    </div>
+
+    <div class="form-group">
+        <textarea class="form-control" id="listingText" placeholder="Your Post" asp-for="PostContent"></textarea>
+    </div>
+
+    <div class="form-group">
+        <input class="form-control" id="donationQuote" placeholder="Donation quote" asp-for="DonationQuote">
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary btn-lg">Post</button>
+    </div>
+</form>

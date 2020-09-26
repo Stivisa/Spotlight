@@ -10,8 +10,8 @@ using Spotlight.Models.Listings;
 namespace Spotlight.Migrations.ListingDb
 {
     [DbContext(typeof(ListingDbContext))]
-    [Migration("20200915110923_nikola")]
-    partial class nikola
+    [Migration("20200926140157_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -27,6 +27,12 @@ namespace Spotlight.Migrations.ListingDb
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CurrentDonationValue")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DonationQuote")
+                        .HasColumnType("int");
 
                     b.Property<string>("PostContent")
                         .HasColumnType("nvarchar(max)");

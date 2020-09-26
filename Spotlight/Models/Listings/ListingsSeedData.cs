@@ -16,9 +16,9 @@ namespace Spotlight.Models.Listings
             if (!context.AllListings.Any())
             {
                 context.AllListings.AddRange(
-                    new Listing { PostHeadline = "This is 1st listing", PostContent = "Cogito ergo sum.", TimeOfPosting = new DateTime(2020, 6, 1, 12, 32, 30) },
-                    new Listing { PostHeadline = "This is 3rd listing", PostContent = "Per aspera ad astra.", TimeOfPosting = new DateTime(2013, 11, 11, 12, 32, 30) },
-                    new Listing { PostHeadline = "This is 2nd listing", PostContent = "Consuetudinis magna vis est.", TimeOfPosting = new DateTime(2015, 2, 2, 12, 32, 30) }
+                    new Listing { PostHeadline = "This is 1st listing", PostContent = "Cogito ergo sum.", TimeOfPosting = new DateTime(2020, 6, 1, 12, 32, 30), DonationQuote = 10000 },
+                    new Listing { PostHeadline = "This is 3rd listing", PostContent = "Per aspera ad astra.", TimeOfPosting = new DateTime(2013, 11, 11, 12, 32, 30), DonationQuote = 10000 },
+                    new Listing { PostHeadline = "This is 2nd listing", PostContent = "Consuetudinis magna vis est.", TimeOfPosting = new DateTime(2015, 2, 2, 12, 32, 30), DonationQuote = 10000 }
                 );
 
                 context.SaveChanges();

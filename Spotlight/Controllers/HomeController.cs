@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Spotlight.Models;
+using Spotlight.Models.Listings;
 using Spotlight.Models.ViewModels;
 
 namespace Spotlight.Controllers
@@ -79,6 +80,23 @@ namespace Spotlight.Controllers
             newsRepository.AddNews(newPost);
 
             return RedirectToAction("News");
+        }
+
+        [HttpPost]
+        public IActionResult AddNewListing(Listing newListing)
+        {
+            newListing.TimeOfPosting = DateTime.Now;
+            listingRepository.AddListing(newListing);
+
+            return RedirectToAction("Listings");
+        }
+
+        [HttpPost]
+        public IActionResult MakeDonation(Donation d)
+        {
+            listingRepository.AddDonation(d);
+
+            return RedirectToAction("Listings");
         }
     }
 }

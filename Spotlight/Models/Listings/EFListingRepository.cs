@@ -19,5 +19,16 @@ namespace Spotlight.Models.Listings
             context.Add(l);
             context.SaveChanges();
         }
+
+        public void AddDonation(Donation d)
+        {
+            var l = AllListings.FirstOrDefault(l => l.id == d.listing.id);
+
+            if (l == null)
+                return;
+
+            l.CurrentDonationValue += d.value;
+            context.SaveChanges();
+        }
     }
 }

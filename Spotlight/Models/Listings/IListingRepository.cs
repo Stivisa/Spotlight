@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Spotlight.Models.Listings;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,5 +10,7 @@ namespace Spotlight.Models
     {
         IEnumerable<Listing> AllListings { get; }
         public void AddListing(Listing l);
+
+        public void AddDonation(Donation d);
     }
 }

@@ -7,8 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\EventDb\20200925192104_InitialEvent.cs" />
+    <Compile Remove="Migrations\EventDb\20200925192104_InitialEvent.Designer.cs" />
     <Compile Remove="Migrations\ListingDb\20200926094117_Initial.cs" />
     <Compile Remove="Migrations\ListingDb\20200926094117_Initial.Designer.cs" />
+    <Compile Remove="Migrations\ListingDb\20200926140157_Initial.cs" />
+    <Compile Remove="Migrations\ListingDb\20200926140157_Initial.Designer.cs" />
+    <Compile Remove="Migrations\ListingDb\20200927094359_Initial.cs" />
+    <Compile Remove="Migrations\ListingDb\20200927094359_Initial.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

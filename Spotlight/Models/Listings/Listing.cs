@@ -10,7 +10,7 @@ namespace Spotlight.Models
     {
         [Key]
         public int id { get; set; }
-        public int DonationQuote { get; set; }
-        public int CurrentDonationValue { get; set; } = 0;
+        public double DonationQuote { get; set; } = 0;
+        public double CurrentDonationValue { get; set; } = 0;
     }
 }

@@ -6,7 +6,7 @@
 @model NewsPostViewModel
 
 <div class="d-flex justify-content-between">
-    <h1 class="display-3">News</h1>
+    <h1 class="display-4">News</h1>
     <div class="align-self-center">
         <button class="btn btn-outline-primary float-right" id="newPostButton" data-toggle="modal" data-target="#newPostModal">Add a news post</button>
     </div>
@@ -22,24 +22,22 @@
             <div class="modal-body">
                 <partial name="_AddNewPost" model="@new NewsPost()" />
             </div>
-
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
         </div>
     </div>
 </div>
 
 @foreach (var n in Model.NewsPosts)
 {
-    <div>
+<div class="card">
+    <div class="card-body">
         @if (n.TimeOfPosting.HasValue)
         {
-            <a class="mb-1 text-muted">@n.TimeOfPosting.Value.ToString("MMMM d, yyyy")</a>
+            <p class="mb-1 text-muted card-subtitle">@n.TimeOfPosting.Value.ToString("MMMM d, yyyy")</p>
         }
-        <h2 class="display-4">@n.PostHeadline</h2>
-        <div>@n.PostContent</div>
-    </div>
+        <h2 class="card-title">@n.PostHeadline</h2>
+        <div class="card-text">@n.PostContent</div>
+    </div>       
+</div>
 }
 
 <div page-model="@Model.PagingInfo" asp-action="News"

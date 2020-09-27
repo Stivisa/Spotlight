@@ -3,8 +3,14 @@
 @model Donation
 
 <form id='@("donationForm" + Model.listing.id)' asp-controller="Home" asp-action="MakeDonation" method="post">
-    <div class="form-group">
-        <input class="form-control" id="donationValue" asp-for="value">
+    <div class="form-group form-inline">
+        <label for="donationValue">Name your donation: </label>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text ml-3">$</span>
+                <input class="form-control" id="donationValue" min="0" asp-for="value">
+            </div>
+        </div>
     </div>
 
     <div class="form-group">

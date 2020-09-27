@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Identity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel;
+using Microsoft.AspNetCore.Http;
 
 namespace Spotlight.Models.Identity
 {
@@ -37,6 +39,22 @@ namespace Spotlight.Models.Identity
         public string ConfirmPassword { get; set; }
         [Required]
         public string Role { get; set; }
+    }
+
+    public class EditModel
+    {
+        [Required]
+        public string Name { get; set; }
+        [Required]
+        public string Email { get; set; }
+        [Required]
+        public string Password { get; set; }
+
+        public string ImageName { get; set; }
+
+        [DisplayName("Upload File")]
+        public IFormFile ImageFile { get; set; }
+        
     }
 
     public class RoleEditModel

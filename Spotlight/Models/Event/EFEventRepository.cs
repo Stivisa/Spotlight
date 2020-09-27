@@ -30,6 +30,7 @@ namespace Spotlight.Models.Event
                     dbEntry.Description = newevent.Description;                  
                     dbEntry.Category = newevent.Category;
                     dbEntry.Date = DateTime.Now;
+                    dbEntry.ImageName = newevent.ImageName;
                 }
             }
             context.SaveChanges();

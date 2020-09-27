@@ -10,7 +10,7 @@ using Spotlight.Models.Identity;
 namespace Spotlight.Migrations.IdentityDb
 {
     [DbContext(typeof(AppIdentityDbContext))]
-    [Migration("20200925174528_Identity")]
+    [Migration("20200927135713_Identity")]
     partial class Identity
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -170,6 +170,9 @@ namespace Spotlight.Migrations.IdentityDb
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
+
+                    b.Property<string>("ImageName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");

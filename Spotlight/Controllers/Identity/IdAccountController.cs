@@ -9,6 +9,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Net.Mail;
 using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
 
 namespace Spotlight.Controllers.Identity
 {
@@ -23,13 +26,15 @@ namespace Spotlight.Controllers.Identity
         private IUserValidator<AppUser> userValidator;
         private IPasswordValidator<AppUser> passwordValidator;
         private IPasswordHasher<AppUser> passwordHasher;
+        private readonly IWebHostEnvironment hostEnvironment;
         public IdAccountController(UserManager<AppUser> userMgr,
             RoleManager<IdentityRole> roleMgr,
             SignInManager<AppUser> signinMgr,
             IConfiguration IConfig,
             IUserValidator<AppUser> userValid,
             IPasswordValidator<AppUser> passValid,
-            IPasswordHasher<AppUser> passwordHash)
+            IPasswordHasher<AppUser> passwordHash,
+            IWebHostEnvironment hostEnvironment)
         {
             roleManager = roleMgr;
             userManager = userMgr;
@@ -38,6 +43,7 @@ namespace Spotlight.Controllers.Identity
             passwordValidator = passValid;
             passwordHasher = passwordHash;
             configuration = IConfig;
+            this.hostEnvironment = hostEnvironment;
         }
 
         [AllowAnonymous]
@@ -143,7 +149,7 @@ namespace Spotlight.Controllers.Identity
             AppUser user = await userManager.FindByNameAsync(User.Identity.Name);
             if (user != null)
             {
-                return View("~/Views/Identity/Account/Edit.cshtml", user);
+                return View("~/Views/Identity/Account/Edit.cshtml", new Models.Identity.EditModel { Name = user.UserName, Email = user.Email, Password="" , ImageName = user.ImageName});
             }
             else
             {
@@ -152,13 +158,30 @@ namespace Spotlight.Controllers.Identity
         }
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> Edit(string username, string email, string password)
+        //public async Task<IActionResult> Edit(string username, string email, string password, IFormFile image)
+        public async Task<IActionResult> Edit(EditModel newedit)
         {
             AppUser user = await userManager.FindByNameAsync(User.Identity.Name);
+            //Console.WriteLine("PROFILE: " + newedit.Name + newedit.Email + newedit.Password + newedit.ImageFile.FileName);
+            if (newedit.ImageFile != null)
+            {
+                //Console.WriteLine("PROFILE: " + newedit.ImageFile.FileName);
+                string wwwRootPath = hostEnvironment.WebRootPath;
+                string fileName = Path.GetFileNameWithoutExtension(newedit.ImageFile.FileName);
+                string extension = Path.GetExtension(newedit.ImageFile.FileName);
+                fileName = fileName + DateTime.Now.ToString("yymmss") + extension;
+                user.ImageName = fileName;
+                string path = Path.Combine(wwwRootPath + "/Image/", fileName);
+                using (var fileStream = new FileStream(path, FileMode.Create))
+                {
+                    await newedit.ImageFile.CopyToAsync(fileStream);
+                }
+            }
+
             if (user != null)
             {
-                user.UserName = username;
-                user.Email = email;
+                user.UserName = newedit.Name;
+                user.Email = newedit.Email;
                 IdentityResult validEmail
                 = await userValidator.ValidateAsync(userManager, user);
                 if (!validEmail.Succeeded)
@@ -166,14 +189,14 @@ namespace Spotlight.Controllers.Identity
                     AddErrorsFromResult(validEmail);
                 }
                 IdentityResult validPass = null;
-                if (!string.IsNullOrEmpty(password))
+                if (!string.IsNullOrEmpty(newedit.Password))
                 {
                     validPass = await passwordValidator.ValidateAsync(userManager,
-                    user, password);
+                    user, newedit.Password);
                     if (validPass.Succeeded)
                     {
                         user.PasswordHash = passwordHasher.HashPassword(user,
-                        password);
+                        newedit.Password);
                     }
                     else
                     {
@@ -182,7 +205,7 @@ namespace Spotlight.Controllers.Identity
                 }
                 if ((validEmail.Succeeded && validPass == null)
                 || (validEmail.Succeeded
-                && password != string.Empty && validPass.Succeeded))
+                && newedit.Password != string.Empty && validPass.Succeeded))
                 {
                     IdentityResult result = await userManager.UpdateAsync(user);
                     if (result.Succeeded)

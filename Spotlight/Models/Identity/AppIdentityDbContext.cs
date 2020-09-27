@@ -28,6 +28,7 @@ namespace Spotlight.Models.Identity
             string email = configuration["AdminUser:Email"];
             string password = configuration["AdminUser:Password"];
             string role = configuration["AdminUser:Role"];
+            string image = configuration["AdminUser:ImageName"];
             if (await userManager.FindByNameAsync(username) == null)
             {
                 if (await roleManager.FindByNameAsync(role) == null)
@@ -37,7 +38,8 @@ namespace Spotlight.Models.Identity
                 AppUser user = new AppUser
                 {
                     UserName = username,
-                    Email = email
+                    Email = email,
+                    ImageName = image
                 };
                 IdentityResult result = await userManager
                 .CreateAsync(user, password);

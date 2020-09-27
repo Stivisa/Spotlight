@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Spotlight.Migrations
 {
-    public partial class NewsDb : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -15,7 +15,8 @@ namespace Spotlight.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     PostHeadline = table.Column<string>(nullable: true),
                     PostContent = table.Column<string>(nullable: true),
-                    TimeOfPosting = table.Column<DateTime>(nullable: true)
+                    TimeOfPosting = table.Column<DateTime>(nullable: true),
+                    UserID = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

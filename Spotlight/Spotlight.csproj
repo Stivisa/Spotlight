@@ -7,6 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20200914163657_NewsDb.cs" />
+    <Compile Remove="Migrations\20200914163657_NewsDb.Designer.cs" />
     <Compile Remove="Migrations\EventDb\20200925192104_InitialEvent.cs" />
     <Compile Remove="Migrations\EventDb\20200925192104_InitialEvent.Designer.cs" />
     <Compile Remove="Migrations\ListingDb\20200926094117_Initial.cs" />

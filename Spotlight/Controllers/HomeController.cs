@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Spotlight.Models;
 using Spotlight.Models.Listings;
 using Spotlight.Models.ViewModels;
+using Spotlight.Controllers.Event;
+using Microsoft.AspNetCore.Identity;
+using Spotlight.Models.Identity;
 
 namespace Spotlight.Controllers
 {
@@ -16,14 +20,17 @@ namespace Spotlight.Controllers
         private readonly ILogger<HomeController> _logger;
         private INewsPostRepository newsRepository;
         private IListingRepository listingRepository;
+        private UserManager<AppUser> userManager;
 
         public int pageSize = 4;
 
-        public HomeController(ILogger<HomeController> logger, INewsPostRepository newsRepo, IListingRepository listingRepo)
+        public HomeController(ILogger<HomeController> logger, INewsPostRepository newsRepo, 
+                              IListingRepository listingRepo, UserManager<AppUser> usrMgr)
         {
             _logger = logger;
             newsRepository = newsRepo;
             listingRepository = listingRepo;
+            userManager = usrMgr;
         }
 
         public IActionResult Index()
@@ -73,10 +80,14 @@ namespace Spotlight.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
+        [Authorize(Roles = "Admins")]
         [HttpPost]
-        public IActionResult AddNewPost(NewsPost newPost)
+        async public Task<IActionResult> AddNewPost(NewsPost newPost)
         {
             newPost.TimeOfPosting = DateTime.Now;
+            var user = await userManager.GetUserAsync(User);
+            newPost.UserID = user.Id;
+
             newsRepository.AddNews(newPost);
 
             return RedirectToAction("News");

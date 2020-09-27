@@ -35,6 +35,9 @@ namespace Spotlight.Migrations
                     b.Property<DateTime?>("TimeOfPosting")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("UserID")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("id");
 
                     b.ToTable("AllNewsPosts");

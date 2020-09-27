@@ -7,5 +7,7 @@ namespace Spotlight.Models
     {
         [Key]
         public int id { get; set; }
+        
+        public string UserID { get; set; }
     }
 }

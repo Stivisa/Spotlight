@@ -10,8 +10,8 @@ using Spotlight.Models.News;
 namespace Spotlight.Migrations
 {
     [DbContext(typeof(NewsDbContext))]
-    [Migration("20200914163657_NewsDb")]
-    partial class NewsDb
+    [Migration("20200927133141_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -36,6 +36,9 @@ namespace Spotlight.Migrations
 
                     b.Property<DateTime?>("TimeOfPosting")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("UserID")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("id");
 

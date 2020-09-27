@@ -5,12 +5,12 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Spotlight.Models.Listings;
+using Spotlight.Models.Event;
 
-namespace Spotlight.Migrations.ListingDb
+namespace Spotlight.Migrations.EventDb
 {
-    [DbContext(typeof(ListingDbContext))]
-    [Migration("20200926140157_Initial")]
+    [DbContext(typeof(EventDbContext))]
+    [Migration("20200927094538_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,31 +21,37 @@ namespace Spotlight.Migrations.ListingDb
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Spotlight.Models.Listing", b =>
+            modelBuilder.Entity("Spotlight.Models.Event.Event", b =>
                 {
-                    b.Property<int>("id")
+                    b.Property<int>("EventID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CurrentDonationValue")
-                        .HasColumnType("int");
-
-                    b.Property<int>("DonationQuote")
-                        .HasColumnType("int");
-
-                    b.Property<string>("PostContent")
+                    b.Property<string>("Category")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PostHeadline")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("TimeOfPosting")
+                    b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("id");
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.ToTable("AllListings");
+                    b.Property<string>("Header")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserID")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("EventID");
+
+                    b.ToTable("Events");
                 });
 #pragma warning restore 612, 618
         }

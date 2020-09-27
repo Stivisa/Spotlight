@@ -9,11 +9,20 @@
         <textarea class="form-control" id="listingText" placeholder="Your Post" asp-for="PostContent"></textarea>
     </div>
 
-    <div class="form-group">
-        <input class="form-control" id="donationQuote" placeholder="Donation quote" asp-for="DonationQuote">
+    <div class="form-group form-inline">
+        <label for="donationValue">Name your donation: </label>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text ml-3">$</span>
+                <input class="form-control" type="number" min="1" id="donationQuote" asp-for="DonationQuote">
+            </div>
+        </div>
     </div>
 
-    <div class="form-group">
-        <button type="submit" class="btn btn-primary btn-lg">Post</button>
+    <div class="modal-footer d-flex justify-content-between">
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Post</button>
+        </div>
+        <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Close</button>
     </div>
 </form>

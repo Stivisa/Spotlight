@@ -33,5 +33,16 @@ namespace Spotlight.Models.News
             post.PostContent = n.PostContent;
             context.SaveChanges();
         }
+
+        public void DeleteNewsPost(NewsPost n)
+        {
+            var post = AllNewsPosts.FirstOrDefault(post => post.id == n.id);
+
+            if (post == null)
+                return;
+
+            context.Remove(post);
+            context.SaveChanges();
+        }
     }
 }

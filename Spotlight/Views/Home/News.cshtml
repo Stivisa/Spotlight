@@ -52,6 +52,20 @@
         </div>
     </div>
 
+    <div id='@("deletePostModal_" + n.id)' class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Edit Post</h4>
+                </div>
+
+                <div class="modal-body">
+                    <partial name="_DeleteNewsPost" model="@n" />
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="card-body">
         @if (n.TimeOfPosting.HasValue)
         {
@@ -60,17 +74,24 @@
 
         @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admins"))
         {
-            <button class="btn btn-outline-warning float-right" id="newPostButton"
-                    data-toggle="modal" data-target='#@("editPostModal_" + n.id)'>
-                Edit
-            </button>
+            <div class="btn-group-justified btn-group-vertical float-right">
+                <button class="btn btn-outline-warning"
+                        data-toggle="modal" data-target='#@("editPostModal_" + n.id)'>
+                    Edit
+                </button>
+
+                <button class="btn btn-outline-dark mt-2"
+                        data-toggle="modal" data-target='#@("deletePostModal_" + n.id)'>
+                    Delete
+                </button>
+            </div>
         }
 
         <h2 class="card-title">@n.PostHeadline</h2>
 
         <div class="card-text">@n.PostContent</div>
     </div>
-</div>
+        </div>
 }
 
 <div page-model="@Model.PagingInfo" asp-action="News"

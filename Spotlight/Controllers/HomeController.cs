@@ -93,7 +93,7 @@ namespace Spotlight.Controllers
             return RedirectToAction("News");
         }
 
-        [Authorize]
+        [Authorize(Roles = "Admins")]
         [HttpPost]
         async public Task<IActionResult> EditNewsPost(NewsPost newPost)
         {
@@ -102,6 +102,15 @@ namespace Spotlight.Controllers
             newPost.UserID = user.Id;
 
             newsRepository.UpdateNewsPost(newPost);
+
+            return RedirectToAction("News");
+        }
+
+        [Authorize(Roles = "Admins")]
+        [HttpPost]
+        public IActionResult DeleteNewsPost(NewsPost newPost)
+        {
+            newsRepository.DeleteNewsPost(newPost);
 
             return RedirectToAction("News");
         }

@@ -7,5 +7,6 @@ namespace Spotlight.Models
         IEnumerable<NewsPost> AllNewsPosts { get; }
         public abstract void AddNews(NewsPost n);
         public abstract void UpdateNewsPost(NewsPost n);
+        public abstract void DeleteNewsPost(NewsPost n);
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Spotlight.Migrations.ListingDb
+namespace Spotlight.Migrations
 {
     public partial class Initial : Migration
     {
@@ -11,18 +11,17 @@ namespace Spotlight.Migrations.ListingDb
                 name: "AllListings",
                 columns: table => new
                 {
-                    id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DonationQuote = table.Column<double>(nullable: false),
+                    id = table.Column<int>(nullable: false),
                     PostHeadline = table.Column<string>(nullable: true),
                     PostContent = table.Column<string>(nullable: true),
                     TimeOfPosting = table.Column<DateTime>(nullable: true),
-                    DonationQuote = table.Column<double>(nullable: false),
                     CurrentDonationValue = table.Column<double>(nullable: false),
                     UserID = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AllListings", x => x.id);
+                    table.PrimaryKey("PK_AllListings", x => x.DonationQuote);
                 });
         }
 

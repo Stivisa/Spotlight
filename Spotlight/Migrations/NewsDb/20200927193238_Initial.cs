@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Spotlight.Migrations
+namespace Spotlight.Migrations.NewsDb
 {
     public partial class Initial : Migration
     {

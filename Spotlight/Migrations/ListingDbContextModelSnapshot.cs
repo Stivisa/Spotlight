@@ -4,12 +4,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Spotlight.Models.News;
+using Spotlight.Models.Listings;
 
 namespace Spotlight.Migrations
 {
-    [DbContext(typeof(NewsDbContext))]
-    partial class NewsDbContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(ListingDbContext))]
+    partial class ListingDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
@@ -19,12 +19,13 @@ namespace Spotlight.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Spotlight.Models.NewsPost", b =>
+            modelBuilder.Entity("Spotlight.Models.Listing", b =>
                 {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<double>("DonationQuote")
+                        .HasColumnType("float");
+
+                    b.Property<double>("CurrentDonationValue")
+                        .HasColumnType("float");
 
                     b.Property<string>("PostContent")
                         .HasColumnType("nvarchar(max)");
@@ -38,9 +39,12 @@ namespace Spotlight.Migrations
                     b.Property<string>("UserID")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("id");
+                    b.Property<int>("id")
+                        .HasColumnType("int");
 
-                    b.ToTable("AllNewsPosts");
+                    b.HasKey("DonationQuote");
+
+                    b.ToTable("AllListings");
                 });
 #pragma warning restore 612, 618
         }

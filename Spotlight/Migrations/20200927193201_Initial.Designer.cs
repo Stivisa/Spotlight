@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Spotlight.Models.Listings;
 
-namespace Spotlight.Migrations.ListingDb
+namespace Spotlight.Migrations
 {
     [DbContext(typeof(ListingDbContext))]
-    partial class ListingDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200927193201_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,15 +23,10 @@ namespace Spotlight.Migrations.ListingDb
 
             modelBuilder.Entity("Spotlight.Models.Listing", b =>
                 {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<double>("CurrentDonationValue")
+                    b.Property<double>("DonationQuote")
                         .HasColumnType("float");
 
-                    b.Property<double>("DonationQuote")
+                    b.Property<double>("CurrentDonationValue")
                         .HasColumnType("float");
 
                     b.Property<string>("PostContent")
@@ -44,7 +41,10 @@ namespace Spotlight.Migrations.ListingDb
                     b.Property<string>("UserID")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("id");
+                    b.Property<int>("id")
+                        .HasColumnType("int");
+
+                    b.HasKey("DonationQuote");
 
                     b.ToTable("AllListings");
                 });

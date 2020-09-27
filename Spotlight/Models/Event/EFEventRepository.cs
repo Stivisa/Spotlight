@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Spotlight.Models.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,8 +8,8 @@ namespace Spotlight.Models.Event
 {
     public class EFEventRepository : IEventRepository
     {
-        private EventDbContext context;
-        public EFEventRepository(EventDbContext ctx)
+        private AppIdentityDbContext context;
+        public EFEventRepository(AppIdentityDbContext ctx)
         {
             context = ctx;
         }

@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Identity;
-
+using Spotlight.Models;
 namespace Spotlight.Models.Identity
 {
     public class AppIdentityDbContext : IdentityDbContext<AppUser>
@@ -16,6 +16,8 @@ namespace Spotlight.Models.Identity
         : base(options) { }
 
         public DbSet<Message> Messages { get; set; }
+
+        public DbSet<Event.Event> Events { get; set; }
 
         public static async Task CreateAdminAccount(IServiceProvider serviceProvider,
             IConfiguration configuration)
@@ -71,6 +73,12 @@ namespace Spotlight.Models.Identity
             builder.Entity<Message>()
                 .HasOne<AppUser>(a => a.Sender)
                 .WithMany(d => d.Messages)
+                .OnDelete(DeleteBehavior.SetNull)
+                .HasForeignKey(d => d.UserID);
+
+            builder.Entity<Event.Event>()
+                .HasOne<AppUser>(a => a.Sender)
+                .WithMany(d => d.Events)
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasForeignKey(d => d.UserID);
         }

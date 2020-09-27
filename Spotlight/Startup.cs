@@ -54,7 +54,7 @@ namespace Spotlight
             services.AddDbContext<ListingDbContext>(options => options.UseSqlServer(Configuration["Data:SpotlightListings:ConnectionString"]));
             services.AddTransient<IListingRepository, EFListingRepository>();
 
-            services.AddDbContext<EventDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SpotlightEventDbContextConnection")));
+            //services.AddDbContext<AppIdentityDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SpotlightEventDbContextConnection")));
             services.AddTransient<IEventRepository, EFEventRepository>();
 
             services.AddControllersWithViews();

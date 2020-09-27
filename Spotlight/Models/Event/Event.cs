@@ -7,6 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Http;
 using System.ComponentModel;
+using Spotlight.Models.Identity;
 
 namespace Spotlight.Models.Event
 {
@@ -26,6 +27,8 @@ namespace Spotlight.Models.Event
 
         public string UserName { get; set; }
         public string UserID { get; set; }
+
+        public virtual AppUser Sender { get; set; }
 
         public string ImageName { get; set; }
         [NotMapped]

@@ -111,10 +111,12 @@ namespace Spotlight.Controllers.Event
         public IActionResult Delete(int eventId)
         {
             Models.Event.Event temp = repository.Events.FirstOrDefault(p => p.EventID == eventId);
-
-            var imagePath = Path.Combine(hostEnvironment.WebRootPath,"image", temp.ImageName);
-            if (System.IO.File.Exists(imagePath))
-                System.IO.File.Delete(imagePath);
+            if (temp.ImageName != null)
+            {
+                var imagePath = Path.Combine(hostEnvironment.WebRootPath, "image", temp.ImageName);
+                if (System.IO.File.Exists(imagePath))
+                    System.IO.File.Delete(imagePath);
+            }
 
             Models.Event.Event deletedEvent = repository.DeleteEvent(eventId);
             if (deletedEvent != null)

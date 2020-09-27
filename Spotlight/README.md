@@ -8,6 +8,5 @@
 <pre>dotnet ef database update --context AppIdentityDbContext</pre>
 <pre>dotnet ef database update --context ListingDbContext</pre>
 <pre>dotnet ef database update --context NewsDbContext</pre>
-<pre>dotnet ef database update --context EventDbContext</pre>
 
 4. Nakon registracije potrebno je verifikovati email. Confirmation link se ispisuje i u konzoli, za slucaj da je unet nepostojeci email (npr. example@example123.com)

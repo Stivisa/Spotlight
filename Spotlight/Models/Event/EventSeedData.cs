@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
+using Spotlight.Models.Identity;
 
 namespace Spotlight.Models.Event
 {
@@ -12,9 +13,9 @@ namespace Spotlight.Models.Event
     {
         public static void EnsurePopulated(IApplicationBuilder app)
         {
-            EventDbContext context = app.ApplicationServices
-            .GetRequiredService<EventDbContext>();
-            context.Database.Migrate();
+            AppIdentityDbContext context = app.ApplicationServices
+            .GetRequiredService<AppIdentityDbContext>();
+            //context.Database.Migrate();
             if (!context.Events.Any())
             {
                 context.Events.AddRange(

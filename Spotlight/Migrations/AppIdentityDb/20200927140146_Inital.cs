@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Spotlight.Migrations.IdentityDb
+namespace Spotlight.Migrations.AppIdentityDb
 {
-    public partial class Identity : Migration
+    public partial class Inital : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

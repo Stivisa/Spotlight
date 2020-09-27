@@ -10,7 +10,7 @@ using Spotlight.Models.News;
 namespace Spotlight.Migrations
 {
     [DbContext(typeof(NewsDbContext))]
-    [Migration("20200927133141_Initial")]
+    [Migration("20200927150644_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

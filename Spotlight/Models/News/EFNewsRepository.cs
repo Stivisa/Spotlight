@@ -21,5 +21,17 @@ namespace Spotlight.Models.News
             context.Add(n);
             context.SaveChanges();
         }
+
+    public void UpdateNewsPost(NewsPost n)
+        {
+            var post = AllNewsPosts.FirstOrDefault(post => post.id == n.id);
+
+            if (post == null)
+                return;
+
+            post.PostHeadline = n.PostHeadline;
+            post.PostContent = n.PostContent;
+            context.SaveChanges();
+        }
     }
 }

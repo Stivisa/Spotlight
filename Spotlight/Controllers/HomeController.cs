@@ -93,6 +93,20 @@ namespace Spotlight.Controllers
             return RedirectToAction("News");
         }
 
+        [Authorize]
+        [HttpPost]
+        async public Task<IActionResult> EditNewsPost(NewsPost newPost)
+        {
+            newPost.TimeOfPosting = DateTime.Now;
+            var user = await userManager.GetUserAsync(User);
+            newPost.UserID = user.Id;
+
+            newsRepository.UpdateNewsPost(newPost);
+
+            return RedirectToAction("News");
+        }
+
+        [Authorize]
         [HttpPost]
         public IActionResult AddNewListing(Listing newListing)
         {

@@ -3,12 +3,21 @@
     ViewData["Title"] = "News";
 }
 
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
+
 @model NewsPostViewModel
 
 <div class="d-flex justify-content-between">
     <h1 class="display-4">News</h1>
     <div class="align-self-center">
-        <button class="btn btn-outline-primary float-right" id="newPostButton" data-toggle="modal" data-target="#newPostModal">Add a news post</button>
+        @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admins"))
+        {
+            <button class="btn btn-outline-primary float-right" id="newPostButton"
+                    data-toggle="modal" data-target="#newPostModal">
+                Add a news post
+            </button>
+        }
     </div>
 </div>
 
@@ -29,14 +38,38 @@
 @foreach (var n in Model.NewsPosts)
 {
 <div class="card">
+    <div id='@("editPostModal_" + n.id)' class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Edit Post</h4>
+                </div>
+
+                <div class="modal-body">
+                    <partial name="_EditNewsPost" model="@n" />
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="card-body">
         @if (n.TimeOfPosting.HasValue)
         {
             <p class="mb-1 text-muted card-subtitle">@n.TimeOfPosting.Value.ToString("MMMM d, yyyy")</p>
         }
+
+        @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admins"))
+        {
+            <button class="btn btn-outline-warning float-right" id="newPostButton"
+                    data-toggle="modal" data-target='#@("editPostModal_" + n.id)'>
+                Edit
+            </button>
+        }
+
         <h2 class="card-title">@n.PostHeadline</h2>
+
         <div class="card-text">@n.PostContent</div>
-    </div>       
+    </div>
 </div>
 }
 

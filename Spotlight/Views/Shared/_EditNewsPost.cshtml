@@ -1,12 +1,16 @@
 ﻿@model NewsPost
 
-<form asp-controller="Home" asp-action="AddNewPost" method="post">
+<form asp-controller="Home" asp-action="EditNewsPost" method="post">
     <div class="form-group">
-        <input class="form-control" id="postHeadline" placeholder="Your Headline" asp-for="PostHeadline">
+        <input class="form-control" id="editPostHeadline" asp-for="PostHeadline">
     </div>
 
     <div class="form-group">
-        <textarea class="form-control" id="postText" placeholder="Your Post" asp-for="PostContent"></textarea>
+        <textarea class="form-control" id="editPostText" placeholder="Your Post" asp-for="PostContent"></textarea>
+    </div>
+
+    <div class="form-group">
+        <input class="form-control d-none" asp-for="id" value="@Model.id" />
     </div>
 
     <div class="modal-footer d-flex justify-content-between">
@@ -15,4 +19,5 @@
         </div>
         <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Close</button>
     </div>
+
 </form>

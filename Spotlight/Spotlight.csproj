@@ -9,8 +9,12 @@
   <ItemGroup>
     <Compile Remove="Migrations\20200914163657_NewsDb.cs" />
     <Compile Remove="Migrations\20200914163657_NewsDb.Designer.cs" />
+    <Compile Remove="Migrations\20200927133141_Initial.cs" />
+    <Compile Remove="Migrations\20200927133141_Initial.Designer.cs" />
     <Compile Remove="Migrations\EventDb\20200925192104_InitialEvent.cs" />
     <Compile Remove="Migrations\EventDb\20200925192104_InitialEvent.Designer.cs" />
+    <Compile Remove="Migrations\IdentityDb\20200925174528_Identity.cs" />
+    <Compile Remove="Migrations\IdentityDb\20200925174528_Identity.Designer.cs" />
     <Compile Remove="Migrations\ListingDb\20200926094117_Initial.cs" />
     <Compile Remove="Migrations\ListingDb\20200926094117_Initial.Designer.cs" />
     <Compile Remove="Migrations\ListingDb\20200926140157_Initial.cs" />
@@ -37,6 +41,10 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Migrations\IdentityDb\" />
   </ItemGroup>
 
 </Project>

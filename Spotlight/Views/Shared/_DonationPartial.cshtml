@@ -8,7 +8,7 @@
         <div class="input-group">
             <div class="input-group-prepend">
                 <span class="input-group-text ml-3">$</span>
-                <input class="form-control" id="donationValue" min="0" asp-for="value">
+                <input class="form-control" id='@("donationValue_" + Model.listing.id)' min="0" asp-for="value">
             </div>
         </div>
     </div>
@@ -37,14 +37,13 @@
                 return actions.order.create({
                 purchase_units: [{
                     amount: {
-                        value: document.getElementById("donationValue").value
+                        value: document.getElementById('@("donationValue_" + Model.listing.id)').value
                         }
                     }]
                 });
         },
 
         onApprove: function (data, actions) {
-            // This function captures the funds from the transaction.
             return actions.order.capture().then(function (details) {
                 document.getElementById('@("submit_" + Model.listing.id)').click();
             });

@@ -22,7 +22,7 @@ namespace Spotlight.Models.News
             context.SaveChanges();
         }
 
-    public void UpdateNewsPost(NewsPost n)
+        public void UpdateNewsPost(NewsPost n)
         {
             var post = AllNewsPosts.FirstOrDefault(post => post.id == n.id);
 

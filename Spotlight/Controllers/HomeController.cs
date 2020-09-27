@@ -108,19 +108,44 @@ namespace Spotlight.Controllers
 
         [Authorize(Roles = "Admins")]
         [HttpPost]
-        public IActionResult DeleteNewsPost(NewsPost newPost)
+        public IActionResult DeleteNewsPost(NewsPost post)
         {
-            newsRepository.DeleteNewsPost(newPost);
+            newsRepository.DeleteNewsPost(post);
 
             return RedirectToAction("News");
         }
 
         [Authorize]
         [HttpPost]
-        public IActionResult AddNewListing(Listing newListing)
+        async public Task<IActionResult> AddNewListing(Listing newListing)
         {
             newListing.TimeOfPosting = DateTime.Now;
+            var user = await userManager.GetUserAsync(User);
+            newListing.UserID = user.Id;
+
             listingRepository.AddListing(newListing);
+
+            return RedirectToAction("Listings");
+        }
+
+        [Authorize(Roles = "Admins")]
+        [HttpPost]
+        async public Task<IActionResult> EditListing(Listing newListing)
+        {
+            newListing.TimeOfPosting = DateTime.Now;
+            var user = await userManager.GetUserAsync(User);
+            newListing.UserID = user.Id;
+
+            listingRepository.UpdateListing(newListing);
+
+            return RedirectToAction("Listings");
+        }
+
+        [Authorize(Roles = "Admins")]
+        [HttpPost]
+        public IActionResult DeleteListing(Listing listing)
+        {
+            listingRepository.DeleteListing(listing);
 
             return RedirectToAction("Listings");
         }

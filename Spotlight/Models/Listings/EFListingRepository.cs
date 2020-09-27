@@ -30,5 +30,28 @@ namespace Spotlight.Models.Listings
             l.CurrentDonationValue += d.value;
             context.SaveChanges();
         }
+
+        public void UpdateListing(Listing l)
+        {
+            var listing = AllListings.FirstOrDefault(post => post.id == l.id);
+
+            if (listing == null)
+                return;
+
+            listing.PostHeadline = l.PostHeadline;
+            listing.PostContent = l.PostContent;
+            context.SaveChanges();
+        }
+
+        public void DeleteListing(Listing l)
+        {
+            var post = AllListings.FirstOrDefault(post => post.id == l.id);
+
+            if (post == null)
+                return;
+
+            context.Remove(post);
+            context.SaveChanges();
+        }
     }
 }

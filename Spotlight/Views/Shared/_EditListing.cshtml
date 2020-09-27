@@ -1,0 +1,23 @@
+﻿@model Listing
+
+<form asp-controller="Home" asp-action="EditListing" method="post">
+    <div class="form-group">
+        <input class="form-control" id="editListingHeadline" asp-for="PostHeadline">
+    </div>
+
+    <div class="form-group">
+        <textarea class="form-control" id="editListingText" placeholder="Your Post" asp-for="PostContent"></textarea>
+    </div>
+
+    <div class="form-group">
+        <input class="form-control d-none" asp-for="id" value="@Model.id" />
+    </div>
+
+    <div class="modal-footer d-flex justify-content-between">
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Post</button>
+        </div>
+        <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Close</button>
+    </div>
+
+</form>

@@ -21,6 +21,8 @@
     <Compile Remove="Migrations\ListingDb\20200926140157_Initial.Designer.cs" />
     <Compile Remove="Migrations\ListingDb\20200927094359_Initial.cs" />
     <Compile Remove="Migrations\ListingDb\20200927094359_Initial.Designer.cs" />
+    <Compile Remove="Migrations\ListingDb\20200927112011_Initial.cs" />
+    <Compile Remove="Migrations\ListingDb\20200927112011_Initial.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

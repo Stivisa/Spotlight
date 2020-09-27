@@ -4,15 +4,23 @@
 }
 
 @using Spotlight.Models.Listings;
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
 
 @model ListingViewModel
 
-<div class="d-flex justify-content-between">
-    <h1 class="display-4">Active Listings</h1>
-    <div class="align-self-center">
-        <button class="btn btn-outline-primary float-right" data-toggle="modal" data-target="#newListingModal">Add a listing</button>
+    <div class="d-flex justify-content-between">
+        <h1 class="display-4">Active listings</h1>
+        <div class="align-self-center">
+            @if (SignInManager.IsSignedIn(User))
+            {
+                <button class="btn btn-outline-primary float-right" id="newListingButton"
+                        data-toggle="modal" data-target="#newListingModal">
+                    Add a news post
+                </button>
+            }
+        </div>
     </div>
-</div>
 
 <div id="newListingModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
@@ -34,23 +42,71 @@
 @foreach (var l in Model.Listings)
 {
     <div class="card">
+        <div id='@("editListingModal_" + l.id)' class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Edit Listing</h4>
+                    </div>
+
+                    <div class="modal-body">
+                        <partial name="_EditListing" model="@l" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id='@("deleteListingModal_" + l.id)' class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Delete Listing</h4>
+                    </div>
+
+                    <div class="modal-body">
+                        <partial name="_DeleteListing" model="@l" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="card-body">
             @if (l.TimeOfPosting.HasValue)
             {
                 <p class="mb-1 text-muted card-subtitle">@l.TimeOfPosting.Value.ToString("MMMM d, yyyy")</p>
             }
+
+            @if (SignInManager.IsSignedIn(User) && (User.IsInRole("Admins") || UserManager.GetUserId(User) == l.UserID))
+            {
+                <div class="btn-group-justified btn-group-vertical float-right">
+                    <button class="btn btn-outline-warning"
+                            data-toggle="modal" data-target='#@("editListingModal_" + l.id)'>
+                        Edit
+                    </button>
+
+                    @if (User.IsInRole("Admins"))
+                    {
+                        <button class="btn btn-outline-dark mt-2"
+                                data-toggle="modal" data-target='#@("deleteListingModal_" + l.id)'>
+                            Delete
+                        </button>
+                    }
+                </div>
+            }
+
             <h4 class="card-title">@l.PostHeadline</h4>
             <div class="card-text">@l.PostContent</div>
 
             <div class="progress mb-3 mt-3">
-                <div class="progress-bar progress-bar-striped bg-success text-dark" role="progressbar" 
-                     style="width: @(100*l.CurrentDonationValue / l.DonationQuote)%" 
+                <div class="progress-bar progress-bar-striped bg-success text-dark" role="progressbar"
+                     style="width: @(100*l.CurrentDonationValue / l.DonationQuote)%"
                      aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
 
                     @if (l.CurrentDonationValue >= l.DonationQuote)
                     {
                         <span class="ml-2 font-weight-bold">Donation quote met!</span>
-                    } else
+                    }
+                    else
                     {
                         <span class="ml-2 font-weight-bold">$@(l.CurrentDonationValue) raised of $@(l.DonationQuote)</span>
                     }

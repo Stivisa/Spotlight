@@ -17,7 +17,8 @@ namespace Spotlight.Migrations.ListingDb
                     PostContent = table.Column<string>(nullable: true),
                     TimeOfPosting = table.Column<DateTime>(nullable: true),
                     DonationQuote = table.Column<double>(nullable: false),
-                    CurrentDonationValue = table.Column<double>(nullable: false)
+                    CurrentDonationValue = table.Column<double>(nullable: false),
+                    UserID = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

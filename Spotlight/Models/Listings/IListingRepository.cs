@@ -10,7 +10,8 @@ namespace Spotlight.Models
     {
         IEnumerable<Listing> AllListings { get; }
         public void AddListing(Listing l);
-
         public void AddDonation(Donation d);
+        public void UpdateListing(Listing l);
+        public void DeleteListing(Listing l);
     }
 }

@@ -10,7 +10,7 @@ using Spotlight.Models.Listings;
 namespace Spotlight.Migrations.ListingDb
 {
     [DbContext(typeof(ListingDbContext))]
-    [Migration("20200927112011_Initial")]
+    [Migration("20200927190747_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -42,6 +42,9 @@ namespace Spotlight.Migrations.ListingDb
 
                     b.Property<DateTime?>("TimeOfPosting")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("UserID")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("id");
 

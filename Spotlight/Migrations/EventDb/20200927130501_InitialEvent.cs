@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Spotlight.Migrations.EventDb
 {
-    public partial class Initial : Migration
+    public partial class InitialEvent : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -18,7 +18,8 @@ namespace Spotlight.Migrations.EventDb
                     Date = table.Column<DateTime>(nullable: false),
                     Category = table.Column<string>(nullable: false),
                     UserName = table.Column<string>(nullable: true),
-                    UserID = table.Column<string>(nullable: true)
+                    UserID = table.Column<string>(nullable: true),
+                    ImageName = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

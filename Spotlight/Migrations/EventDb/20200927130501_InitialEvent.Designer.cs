@@ -10,8 +10,8 @@ using Spotlight.Models.Event;
 namespace Spotlight.Migrations.EventDb
 {
     [DbContext(typeof(EventDbContext))]
-    [Migration("20200927094538_Initial")]
-    partial class Initial
+    [Migration("20200927130501_InitialEvent")]
+    partial class InitialEvent
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -41,6 +41,9 @@ namespace Spotlight.Migrations.EventDb
 
                     b.Property<string>("Header")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserID")

@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Http;
+using System.ComponentModel;
 
 namespace Spotlight.Models.Event
 {
@@ -23,6 +26,11 @@ namespace Spotlight.Models.Event
 
         public string UserName { get; set; }
         public string UserID { get; set; }
+
+        public string ImageName { get; set; }
+        [NotMapped]
+        [DisplayName("Upload File")]
+        public IFormFile ImageFile { get; set; }
 
         public Event()
         {

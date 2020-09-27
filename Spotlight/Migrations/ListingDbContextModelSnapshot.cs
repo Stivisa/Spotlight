@@ -21,10 +21,15 @@ namespace Spotlight.Migrations
 
             modelBuilder.Entity("Spotlight.Models.Listing", b =>
                 {
-                    b.Property<double>("DonationQuote")
-                        .HasColumnType("float");
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<double>("CurrentDonationValue")
+                        .HasColumnType("float");
+
+                    b.Property<double>("DonationQuote")
                         .HasColumnType("float");
 
                     b.Property<string>("PostContent")
@@ -39,10 +44,7 @@ namespace Spotlight.Migrations
                     b.Property<string>("UserID")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("id")
-                        .HasColumnType("int");
-
-                    b.HasKey("DonationQuote");
+                    b.HasKey("id");
 
                     b.ToTable("AllListings");
                 });

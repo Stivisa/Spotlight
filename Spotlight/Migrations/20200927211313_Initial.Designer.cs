@@ -5,12 +5,12 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Spotlight.Models.News;
+using Spotlight.Models.Listings;
 
-namespace Spotlight.Migrations.NewsDb
+namespace Spotlight.Migrations
 {
-    [DbContext(typeof(NewsDbContext))]
-    [Migration("20200927193238_Initial")]
+    [DbContext(typeof(ListingDbContext))]
+    [Migration("20200927211313_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,12 +21,18 @@ namespace Spotlight.Migrations.NewsDb
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Spotlight.Models.NewsPost", b =>
+            modelBuilder.Entity("Spotlight.Models.Listing", b =>
                 {
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<double>("CurrentDonationValue")
+                        .HasColumnType("float");
+
+                    b.Property<double>("DonationQuote")
+                        .HasColumnType("float");
 
                     b.Property<string>("PostContent")
                         .HasColumnType("nvarchar(max)");
@@ -42,7 +48,7 @@ namespace Spotlight.Migrations.NewsDb
 
                     b.HasKey("id");
 
-                    b.ToTable("AllNewsPosts");
+                    b.ToTable("AllListings");
                 });
 #pragma warning restore 612, 618
         }

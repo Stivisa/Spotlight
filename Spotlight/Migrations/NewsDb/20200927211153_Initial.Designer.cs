@@ -5,12 +5,12 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Spotlight.Models.Listings;
+using Spotlight.Models.News;
 
-namespace Spotlight.Migrations
+namespace Spotlight.Migrations.NewsDb
 {
-    [DbContext(typeof(ListingDbContext))]
-    [Migration("20200927193201_Initial")]
+    [DbContext(typeof(NewsDbContext))]
+    [Migration("20200927211153_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,13 +21,12 @@ namespace Spotlight.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Spotlight.Models.Listing", b =>
+            modelBuilder.Entity("Spotlight.Models.NewsPost", b =>
                 {
-                    b.Property<double>("DonationQuote")
-                        .HasColumnType("float");
-
-                    b.Property<double>("CurrentDonationValue")
-                        .HasColumnType("float");
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("PostContent")
                         .HasColumnType("nvarchar(max)");
@@ -41,12 +40,9 @@ namespace Spotlight.Migrations
                     b.Property<string>("UserID")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("id")
-                        .HasColumnType("int");
+                    b.HasKey("id");
 
-                    b.HasKey("DonationQuote");
-
-                    b.ToTable("AllListings");
+                    b.ToTable("AllNewsPosts");
                 });
 #pragma warning restore 612, 618
         }

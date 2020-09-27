@@ -11,17 +11,18 @@ namespace Spotlight.Migrations
                 name: "AllListings",
                 columns: table => new
                 {
-                    DonationQuote = table.Column<double>(nullable: false),
-                    id = table.Column<int>(nullable: false),
+                    id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     PostHeadline = table.Column<string>(nullable: true),
                     PostContent = table.Column<string>(nullable: true),
                     TimeOfPosting = table.Column<DateTime>(nullable: true),
+                    DonationQuote = table.Column<double>(nullable: false),
                     CurrentDonationValue = table.Column<double>(nullable: false),
                     UserID = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AllListings", x => x.DonationQuote);
+                    table.PrimaryKey("PK_AllListings", x => x.id);
                 });
         }
 

@@ -43,12 +43,7 @@
                     @if (this.User.Identity.IsAuthenticated)
                     {
                         <li class="nav-item">
-                            <a class="drop text-dark">Manage</a>
-                            <ul>
-                                <li><a asp-controller="EAdmin" asp-action="Index">My Events</a></li>
-                                <li><a>My Listings</a></li>
-                                <li><a>My News</a></li>
-                            </ul>
+                           <a class="text-dark" asp-controller="EAdmin" asp-action="Index">My Events</a>
                         </li>
                     }
                     @if (this.User.IsInRole("Admins"))

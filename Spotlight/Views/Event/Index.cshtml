@@ -16,7 +16,7 @@
                             <img src="@((p.ImageName != null)?("~/Image/"+p.ImageName):("~/Image/SpotlightLogo.png"))" asp-append-version="true">
                         </figure>   <!--Ovde ubaciti sliku kada bude imalo, src = ...p.Image... -->
                         <address>
-                            <a href="#">@p.Header</a>
+                            <a href="#Detailed">@p.Header</a>
                         </address>
                         <time> @p.Date.ToString("MMMM d, yyyy")<sup>th</sup></time>
                     </header>

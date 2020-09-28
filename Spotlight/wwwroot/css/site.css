@@ -89,7 +89,7 @@ body {
 /* Darker chat container */
 #chat .darker {
     border-color: #fff;
-    background-color: #007bff;
+    background-color: #ffa41c !important
 }
 
 /* Clear floats */

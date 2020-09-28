@@ -12,7 +12,7 @@ namespace Spotlight.Controllers.Event
     public class EHomeController : Controller
     {
         private IEventRepository repository;
-        public int PageSize = 4;
+        public int PageSize = 3;
 
         public EHomeController(IEventRepository repo)
         {

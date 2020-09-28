@@ -61,14 +61,13 @@ namespace Spotlight.Controllers.Identity
             {
                 AppUser user = await userManager.FindByEmailAsync(details.Email);
 
-                if (!await userManager.IsEmailConfirmedAsync(user))
-                {
-                    ModelState.AddModelError("", "You must have a confirmed email to log on.");
-                    return View("~/Views/Identity/Account/Login.cshtml", details);
-                }
-
                 if (user != null)
                 {
+                    if (!await userManager.IsEmailConfirmedAsync(user))
+                    {
+                        ModelState.AddModelError("", "You must have a confirmed email to log on.");
+                        return View("~/Views/Identity/Account/Login.cshtml", details);
+                    }
                     await signInManager.SignOutAsync();
                     Microsoft.AspNetCore.Identity.SignInResult result =
                     await signInManager.PasswordSignInAsync(

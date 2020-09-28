@@ -9,137 +9,152 @@
 
 @model ListingViewModel
 
-    <div class="d-flex justify-content-between">
-        <h1 class="display-4">Active listings</h1>
-        <div class="align-self-center">
-            @if (SignInManager.IsSignedIn(User))
-            {
-                <button class="btn btn-outline-primary float-right" id="newListingButton"
-                        data-toggle="modal" data-target="#newListingModal">
-                    Add a news post
-                </button>
-            }
-        </div>
-    </div>
-
-<div id="newListingModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">New Listing</h4>
-            </div>
-
-            <div class="modal-body">
-                <partial name="_AddNewListing" model="@new Listing()" />
-            </div>
-        </div>
-    </div>
+<div class="bgded overlay" style="background-image:url('/image/pozadina.jpg');">
+    <section id="breadcrumb" class="hoc clear">
+        <i class="fas fa-puzzle-piece fa-3x"></i>
+        <h6 class="heading">Listings</h6>
+    </section>
 </div>
+<div class="wrapper row3">
+    <main class="hoc container clear">
 
-<script src="https://www.paypal.com/sdk/js?client-id=Abq8e3aVpHpJXmLFOq2jmoAGokid1hNSzPyWwDgRFF0Z90JDGOAgy0iKyxqIAwQz-OYQTU9GjVeAhOxg&disable-funding=credit,card">
-</script>
 
-@foreach (var l in Model.Listings)
-{
-    <div class="card">
-        <div id='@("editListingModal_" + l.id)' class="modal fade" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Edit Listing</h4>
-                    </div>
-
-                    <div class="modal-body">
-                        <partial name="_EditListing" model="@l" />
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id='@("deleteListingModal_" + l.id)' class="modal fade" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Delete Listing</h4>
-                    </div>
-
-                    <div class="modal-body">
-                        <partial name="_DeleteListing" model="@l" />
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="card-body">
-            @if (l.TimeOfPosting.HasValue)
-            {
-                <p class="mb-1 text-muted card-subtitle">@l.TimeOfPosting.Value.ToString("MMMM d, yyyy")</p>
-            }
-
-            @if (SignInManager.IsSignedIn(User) && (User.IsInRole("Admins") || UserManager.GetUserId(User) == l.UserID))
-            {
-                <div class="btn-group-justified btn-group-vertical float-right">
-                    <button class="btn btn-outline-warning"
-                            data-toggle="modal" data-target='#@("editListingModal_" + l.id)'>
-                        Edit
+        <div class="d-flex justify-content-between">
+            <h1 class="display-4">Active listings</h1>
+            <div class="align-self-center">
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    <button class="btn btn-outline-primary float-right" id="newListingButton" data-toggle="modal" data-target="#newListingModal">
+                        <i class="fa fa fa-plus-square-o">
+                            Add New Listing
+                        </i>
                     </button>
-
-                    @if (User.IsInRole("Admins"))
-                    {
-                        <button class="btn btn-outline-dark mt-2"
-                                data-toggle="modal" data-target='#@("deleteListingModal_" + l.id)'>
-                            Delete
-                        </button>
-                    }
-                </div>
-            }
-
-            <h4 class="card-title">@l.PostHeadline</h4>
-            <div class="card-text">@l.PostContent</div>
-
-            <div class="progress mb-3 mt-3">
-                <div class="progress-bar progress-bar-striped bg-success text-dark" role="progressbar"
-                     style="width: @(Convert.ToInt32(100*l.CurrentDonationValue / l.DonationQuote))%"
-                     aria-valuenow="@(Convert.ToInt32(100*l.CurrentDonationValue / l.DonationQuote))" aria-valuemin="0" aria-valuemax="100">
-
-                    @if (l.CurrentDonationValue >= l.DonationQuote)
-                    {
-                        <span class="ml-2 font-weight-bold">Donation quote met!</span>
-                    }
-                    else
-                    {
-                        <span class="ml-2 font-weight-bold">$@(l.CurrentDonationValue) raised of $@(l.DonationQuote)</span>
-                    }
-
-                </div>
+                }
             </div>
+        </div>
 
-            <button class="btn btn-outline-success" data-toggle="modal" data-target='#@("donation_modal_" + l.id)'>Donate</button>
+        <div id="newListingModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">New Listing</h4>
+                    </div>
 
-            <div id='@("donation_modal_" + l.id)' class="modal fade" role="dialog">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title">Make A Donation</h4>
-                        </div>
-
-                        <div class="modal-body">
-                            <partial name="_DonationPartial" model="@(new Donation() { listing = l })" />
-                        </div>
-
-                        <div class="modal-footer">
-                            <button class="btn btn-outline-danger" data-dismiss="modal">Close</button>
-                        </div>
+                    <div class="modal-body">
+                        <partial name="_AddNewListing" model="@new Listing()" />
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-}
 
-<div page-model="@Model.PagingInfo" asp-action="Listings"
-     page-classes-enabled="true"
-     page-class="btn" page-class-normal="btn-secondary"
-     page-class-selected="btn-primary" class="btn-group pull-right m-1">
+        <script src="https://www.paypal.com/sdk/js?client-id=Abq8e3aVpHpJXmLFOq2jmoAGokid1hNSzPyWwDgRFF0Z90JDGOAgy0iKyxqIAwQz-OYQTU9GjVeAhOxg&disable-funding=credit,card">
+        </script>
+
+        @foreach (var l in Model.Listings)
+        {
+            <div class="card">
+                <div id='@("editListingModal_" + l.id)' class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Edit Listing</h4>
+                            </div>
+
+                            <div class="modal-body">
+                                <partial name="_EditListing" model="@l" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id='@("deleteListingModal_" + l.id)' class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Delete Listing</h4>
+                            </div>
+
+                            <div class="modal-body">
+                                <partial name="_DeleteListing" model="@l" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    @if (l.TimeOfPosting.HasValue)
+                    {
+                        <p class="mb-1 text-muted card-subtitle">@l.TimeOfPosting.Value.ToString("MMMM d, yyyy")</p>
+                    }
+
+                    @if (SignInManager.IsSignedIn(User) && (User.IsInRole("Admins") || UserManager.GetUserId(User) == l.UserID))
+                    {
+                        <div class="btn-group-justified btn-group-vertical float-right">
+                            <button class="btn btn-outline-warning"
+                                    data-toggle="modal" data-target='#@("editListingModal_" + l.id)'>
+                                <i class="fa fa fa-edit"></i>
+                            </button>
+
+                            @if (User.IsInRole("Admins"))
+                            {
+                                <button class="btn btn-outline-dark mt-2"
+                                        data-toggle="modal" data-target='#@("deleteListingModal_" + l.id)'>
+                                    <i class="fa fa fa-close"></i>
+                                </button>
+                            }
+                        </div>
+                    }
+
+                    <h4 class="card-title">@l.PostHeadline</h4>
+                    <div class="card-text">@l.PostContent</div>
+
+                    <div class="progress mb-3 mt-3">
+                        <div class="progress-bar progress-bar-striped bg-success text-dark" role="progressbar"
+                             style="width: @(Convert.ToInt32(100*l.CurrentDonationValue / l.DonationQuote))%"
+                             aria-valuenow="@(Convert.ToInt32(100*l.CurrentDonationValue / l.DonationQuote))" aria-valuemin="0" aria-valuemax="100">
+
+                            @if (l.CurrentDonationValue >= l.DonationQuote)
+                            {
+                                <span class="ml-2 font-weight-bold">Donation quote met!</span>
+                            }
+                            else
+                            {
+                                <span class="ml-2 font-weight-bold">$@(l.CurrentDonationValue) raised of $@(l.DonationQuote)</span>
+                            }
+
+                        </div>
+                    </div>
+
+                    <button class="btn btn-outline-success" data-toggle="modal" data-target='#@("donation_modal_" + l.id)'>Donate</button>
+
+                    <div id='@("donation_modal_" + l.id)' class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Make A Donation</h4>
+                                </div>
+
+                                <div class="modal-body">
+                                    <partial name="_DonationPartial" model="@(new Donation() { listing = l })" />
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button class="btn btn-outline-danger" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+        <div page-model="@Model.PagingInfo" asp-action="Listings"
+             page-classes-enabled="true"
+             page-class="btn" page-class-normal="btn-secondary"
+             page-class-selected="btn-primary" class="btn-group pull-right m-1">
+        </div>
+    </main>
 </div>
+
+
 

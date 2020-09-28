@@ -24,12 +24,29 @@ namespace Spotlight.Migrations
                 {
                     table.PrimaryKey("PK_AllListings", x => x.id);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "DonationRecords",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    value = table.Column<int>(nullable: false),
+                    When = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DonationRecords", x => x.Id);
+                });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
                 name: "AllListings");
+
+            migrationBuilder.DropTable(
+                name: "DonationRecords");
         }
     }
 }

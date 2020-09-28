@@ -8,6 +8,8 @@ namespace Spotlight.Models.Listings
     public class EFListingRepository : IListingRepository
     {
         private ListingDbContext context;
+        public IEnumerable<DonationRecord> DonationRecords => context.DonationRecords;
+
         public EFListingRepository(ListingDbContext ctx)
         {
             context = ctx;
@@ -51,6 +53,17 @@ namespace Spotlight.Models.Listings
                 return;
 
             context.Remove(post);
+            context.SaveChanges();
+        }
+        public void AddDonationRecord(int value)
+        {
+
+            DonationRecord record = new DonationRecord
+            {
+                value = value
+            };
+
+            context.DonationRecords.Add(record);
             context.SaveChanges();
         }
     }

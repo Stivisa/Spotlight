@@ -1,4 +1,6 @@
-﻿@{
+﻿@model IEnumerable<int>
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -11,3 +13,55 @@
         </article>
     </div>
 </div>
+
+
+<div>
+    <h3>Trenutni broj donacija: @Model.ElementAt(0)</h3>
+    <canvas id="labelChart"></canvas>
+</div>
+
+<script>
+    var ctxP = document.getElementById("labelChart").getContext('2d');
+    var myPieChart = new Chart(ctxP, {
+      type: 'pie',
+      data: {
+        labels: ["<100", "100-500", "500-1000", ">1000"],
+        datasets: [{
+          data: [@Model.ElementAt(1), @Model.ElementAt(2), @Model.ElementAt(3), @Model.ElementAt(4)],
+          backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C", "#949FB1"],
+          hoverBackgroundColor: ["#FF5A5E", "#5AD3D1", "#FFC870", "#A8B3C5"]
+        }]
+      },
+      options: {
+        responsive: true,
+        legend: {
+          position: 'right',
+          labels: {
+            padding: 20,
+            boxWidth: 10
+          }
+        },
+        plugins: {
+          datalabels: {
+            formatter: (value, ctx) => {
+              let sum = 0;
+              let dataArr = ctx.chart.data.datasets[0].data;
+              dataArr.map(data => {
+                sum += data;
+              });
+              let percentage = (value * 100 / sum).toFixed(2) + "%";
+              return percentage;
+            },
+            color: 'white',
+            labels: {
+              title: {
+                font: {
+                  size: '16'
+                }
+              }
+            }
+          }
+        }
+      }
+    });
+</script>

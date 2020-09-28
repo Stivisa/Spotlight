@@ -48,6 +48,24 @@ namespace Spotlight.Migrations
 
                     b.ToTable("AllListings");
                 });
+
+            modelBuilder.Entity("Spotlight.Models.Listings.DonationRecord", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("When")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("value")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DonationRecords");
+                });
 #pragma warning restore 612, 618
         }
     }

@@ -80,6 +80,7 @@ namespace Spotlight
             NewsSeedData.EnsurePopulated(app);
             ListingsSeedData.EnsurePopulated(app);
             EventSeedData.EnsurePopulated(app);
+            DonationRecordSeedData.EnsurePopulated(app);
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

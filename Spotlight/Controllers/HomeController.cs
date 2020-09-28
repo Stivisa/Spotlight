@@ -35,7 +35,14 @@ namespace Spotlight.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var Donations = listingRepository.DonationRecords;
+            var CountDon = Donations.Count();
+            var don1 = Donations.Where(e => e.value < 100).Count();
+            var don2 = Donations.Where(e => e.value >= 100 && e.value < 500).Count();
+            var don3 = Donations.Where(e => e.value >= 500 && e.value < 1000).Count();
+            var don4 = Donations.Where(e => e.value > 1000).Count();
+            int[] chart = { CountDon, don1, don2, don3, don4 };
+            return View(chart);
         }
 
         public IActionResult Listings(int currentPage = 1)
@@ -154,6 +161,8 @@ namespace Spotlight.Controllers
         public IActionResult MakeDonation(Donation d)
         {
             listingRepository.AddDonation(d);
+            
+            listingRepository.AddDonationRecord(d.value);
 
             return RedirectToAction("Listings");
         }

@@ -10,7 +10,7 @@ using Spotlight.Models.Listings;
 namespace Spotlight.Migrations
 {
     [DbContext(typeof(ListingDbContext))]
-    [Migration("20200928092605_Initial")]
+    [Migration("20200928202601_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -49,6 +49,24 @@ namespace Spotlight.Migrations
                     b.HasKey("id");
 
                     b.ToTable("AllListings");
+                });
+
+            modelBuilder.Entity("Spotlight.Models.Listings.DonationRecord", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("When")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("value")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DonationRecords");
                 });
 #pragma warning restore 612, 618
         }

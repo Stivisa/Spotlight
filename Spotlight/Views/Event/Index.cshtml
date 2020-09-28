@@ -4,24 +4,38 @@
 }
 
 @model ItemsListViewModel
-@foreach (var p in Model.Events)
-    {
-    <div class="card card-outline-primary m-1 p-1">
-        <div class="bg-faded p-1">
-            <h3>@p.Header
-                <a asp-controller="EHome" asp-action="Index" asp-route-category="@p.Category" asp-route-currentPage="1" class="badge badge-pill badge-primary" style="float:right">                    
-                        <small>@p.Category</small>                   
-                </a>
-            </h3>
-            <div class="card-text p-1 textDescription">@p.Description</div>
-            <a class="mb-1 text-muted"> @p.Date.ToString("MMMM d, yyyy")</a>
-           
-        </div>
+
+<div id="comments">
+    <ul>
+        @foreach (var p in Model.Events)
+        {
+            <li>
+                <article>
+                    <header>
+                        <figure class="avatar">
+                            <img src="@((p.ImageName != null)?("~/Image/"+p.ImageName):("~/Image/SpotlightLogo.png"))" asp-append-version="true">
+                        </figure>   <!--Ovde ubaciti sliku kada bude imalo, src = ...p.Image... -->
+                        <address>
+                            <a href="#">@p.Header</a>
+                        </address>
+                        <time> @p.Date.ToString("MMMM d, yyyy")<sup>th</sup></time>
+                    </header>
+                    <div class="comcont">
+                        <p>@p.Description</p>
+                    </div>
+                    <a asp-controller="EHome" asp-action="Index" asp-route-category="@p.Category" asp-route-currentPage="1" style="float:right; font:bold">
+                        <p>@p.Category</p>
+                    </a>
+                    <p></p>
+                </article>
+                <br />
+            </li>
+        }
+    </ul>
 </div>
-    }
 
 <div page-model="@Model.PagingInfo" asp-controller="EHome" asp-action="Index"
      page-classes-enabled="true"
-    page-class="btn" page-class-normal="btn-secondary"
-    page-class-selected="btn-primary"  class="btn-group pull-right m-1">
+     page-class="btn" page-class-normal="btn-secondary"
+     page-class-selected="btn-primary" class="btn-group pull-right m-1">
 </div>

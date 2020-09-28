@@ -1,46 +1,53 @@
 ﻿@model Spotlight.Models.Identity.RegisterModel;
 
-<div class="row">
-    <div class="col-md-4 offset-md-4">
-        <div class="bg-primary m-1 p-1 text-white"><h4>Register</h4></div>
-        <div class="text-center"><i class="fas fa-user-plus fa-3x"></i></div>
-        <div asp-validation-summary=" All" class="text-danger"></div>
-        <form asp-controller="IdAccount" asp-action="Register" method="post">
-            <div class="form-group">
-                <label asp-for="Name"></label>
-                <input asp-for="Name" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label asp-for="Email"></label>
-                <input asp-for="Email" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label asp-for="Password">Password</label>
-                <div class="input-group" id="show_hide_password">
-                    <input asp-for="Password" name="password" class="form-control" type="password">
-                    <div class="input-group-addon">
-                        <a href=""><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+<div class="bgded overlay" style="background-image:url('/Image/pozadina.jpg');">
+    <section id="breadcrumb" class="hoc clear">
+        <i class="fas fa-user-plus fa-3x"></i>
+        <h6 class="heading">Register</h6>
+    </section>
+</div>
+
+<div class="wrapper row3">
+    <main class="hoc container clear">
+        <div class="col-md-4 offset-md-4">
+            <div asp-validation-summary=" All" class="text-danger"></div>
+            <form asp-controller="IdAccount" asp-action="Register" method="post">
+                <div class="form-group">
+                    <label asp-for="Name"></label>
+                    <input asp-for="Name" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Email"></label>
+                    <input asp-for="Email" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Password">Password</label>
+                    <div class="input-group" id="show_hide_password">
+                        <input asp-for="Password" name="password" class="form-control" type="password">
+                        <div class="input-group-addon">
+                            <a href=""><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <label asp-for="ConfirmPassword">Confirm password</label>
-                <div class="input-group" id="show_hide_password_confirm">
-                    <input asp-for="ConfirmPassword" name="confirmpassword" class="form-control" type="password">
-                    <div class="input-group-addon">
-                        <a href=""><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+                <div class="form-group">
+                    <label asp-for="ConfirmPassword">Confirm password</label>
+                    <div class="input-group" id="show_hide_password_confirm">
+                        <input asp-for="ConfirmPassword" name="confirmpassword" class="form-control" type="password">
+                        <div class="input-group-addon">
+                            <a href=""><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="form-group dropdown">
-                <label asp-for="Role">Choose type of your profile:</label>
-                <select asp-for="Role" class="form-control btn btn-light dropdown-toggle" asp-items="@ViewBag.ViewRoles">
-                    <option disabled selected>--- SELECT ---</option>
-                </select>
-                </br>
-            </div>
-            <button type="submit" class="btn btn-primary">Create</button>
-            <a asp-action="Index" class="btn btn-secondary">Cancel</a>
-        </form>
-    </div>
+                <div class="form-group dropdown">
+                    <label asp-for="Role">Choose type of your profile:</label>
+                    <select asp-for="Role" class="form-control btn btn-light dropdown-toggle" asp-items="@ViewBag.ViewRoles">
+                        <option disabled selected style="height:50px">--- SELECT ---</option>
+                    </select>
+                    <br />
+                </div>
+                <button type="submit" class="btn btn-primary">Create</button>
+                <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+            </form>
+        </div>
+    </main>
 </div>

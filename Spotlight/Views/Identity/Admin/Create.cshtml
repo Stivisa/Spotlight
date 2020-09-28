@@ -1,9 +1,15 @@
 ﻿@model Spotlight.Models.Identity.CreateModel;
 
-    <div class="row">
-        <div class="col-md-4 offset-md-4">
-            <div class="bg-primary m-1 p-1 text-white"><h4>Create User</h4></div>
-            <div class="text-center"><i class="fas fa-user-plus fa-3x"></i></div>
+<div class="bgded overlay" style="background-image:url('/image/admin.jpg');">
+    <section id="breadcrumb" class="hoc clear">
+        <i class="fas fa-user-plus fa-3x"></i>
+        <h6 class="heading">Create User</h6>
+    </section>
+</div>
+
+
+<div class="wrapper row3">
+    <main class="hoc container clear">
             <div asp-validation-summary=" All" class="text-danger"></div>
             <form asp-controller="IdAdmin" asp-action="Create" method="post">
                 <div class="form-group">
@@ -26,5 +32,6 @@
                 <button type="submit" class="btn btn-primary">Create</button>
                 <a asp-controller="IdAdmin" asp-action="Index" class="btn btn-secondary">Cancel</a>
             </form>
-        </div>
-    </div>
+        
+    </main>
+</div>

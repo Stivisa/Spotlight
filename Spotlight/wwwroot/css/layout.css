@@ -20,10 +20,14 @@ File: Layout CSS
 .row4, .row4 a{}
 .row5, .row5 a{}
 
-
 /* Top Bar
 --------------------------------------------------------------------------------------------------------------- */
-#topbar{padding:15px 0; text-transform:uppercase; text-align:center; font-weight:700;}
+#topbar {
+	padding: 15px 0;
+	text-transform: uppercase;
+	text-align: center;
+	font-weight: 700;
+}
 
 #topbar *{margin:0;}
 #topbar ul li{display:inline-block; margin-right:15px;}

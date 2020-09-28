@@ -1,11 +1,22 @@
 ﻿@model string
-<div class="bg-primary m-1 p-1"><h4>Create Role</h4></div>
-<div asp-validation-summary="All" class="text-danger"></div>
-<form asp-controller="RoleAdmin" asp-action="Create" method="post">
-    <div class="form-group">
-        <label for="name"></label>
-        <input name="name" class="form-control" />
-    </div>
-    <button type="submit" class="btn btn-primary">Create</button>
-    <a asp-controller="RoleAdmin" asp-action="Index" class="btn btn-secondary">Cancel</a>
-</form>
+
+<div class="bgded overlay" style="background-image:url('/image/admin.jpg');">
+    <section id="breadcrumb" class="hoc clear">
+        <i class="fas fa-user fa-3x"></i>
+        <h6 class="heading">Create Role</h6>
+    </section>
+</div>
+
+<div class="wrapper row3">
+    <main class="hoc container clear">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <form asp-controller="RoleAdmin" asp-action="Create" method="post">
+            <div class="form-group">
+                <label for="name"></label>
+                <input name="name" class="form-control" />
+            </div>
+            <button type="submit" class="btn btn-primary">Create</button>
+            <a asp-controller="RoleAdmin" asp-action="Index" class="btn btn-secondary">Cancel</a>
+        </form>
+    </main>
+</div>

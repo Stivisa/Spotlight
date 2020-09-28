@@ -2,12 +2,18 @@
 @{
     ViewBag.Title = "Edit Event";
 }
-    <div class="container">
-        <div class="m-1 p-1">
-            <div class="bg-info p-2"><h4>@ViewBag.Title</h4></div>
-        </div>
-        
-        <form asp-controller="EAdmin" asp-action="Edit" method="post">
+
+<div class="bgded overlay" style="background-image:url('/Image/pozadina.jpg');">
+    <section id="breadcrumb" class="hoc clear">
+        <i class="fas fa-edit fa-3x"></i>
+        <h6 class="heading">@ViewBag.Title</h6>
+    </section>
+</div>
+
+
+<div class="wrapper row3">
+    <main class="hoc container clear">
+        <form asp-controller="EAdmin" asp-action="Edit" method="post" enctype="multipart/form-data">
             <input type="hidden" asp-for="EventID" />
             <div class="form-group">
                 <label asp-for="Header"></label>
@@ -24,10 +30,19 @@
                 <div><span asp-validation-for="Category" class="text-danger"></span></div>
                 <input asp-for="Category" class="form-control" />
             </div>
+            <div class="form-group">
+                <img id="eventSlika" src="@("~/Image/"+Model.ImageName)" asp-append-version="true">
+            </div>
+            <div class="form-group">
+                <label asp-for="ImageFile"></label>
+                <div><span asp-validation-for="ImageFile" class="text-danger"></span></div>
+                <input asp-for="ImageFile" accept="image/*" />
+            </div>
             <div class="text-center">
                 <button class="btn btn-primary" type="submit">Save</button>
-                <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+                <a asp-controller="EAdmin" asp-action="Index" class="btn btn-secondary">Cancel</a>
             </div>
         </form>
 
-    </div>
+    </main>
+</div>

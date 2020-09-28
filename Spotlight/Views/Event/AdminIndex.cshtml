@@ -2,10 +2,17 @@
 @{
     ViewBag.Title = "All Events";
 }
-    <div class="container">
-        <div class="m-1 p-1">
-            <div class="bg-info p-2"><h4>@ViewBag.Title</h4></div>
-        </div>
+
+
+<div class="bgded overlay" style="background-image:url('/Image/pozadina.jpg');">
+    <section id="breadcrumb" class="hoc clear">
+        <i class="fas fa-list-ul fa-3x"></i>
+        <h6 class="heading">@ViewBag.Title</h6>
+    </section>
+</div>
+
+<div class="wrapper row3">
+    <main class="hoc container clear">
         @if (TempData["message"] != null)
         {
             <div class="alert alert-success mt-1">@TempData["message"]</div>
@@ -52,4 +59,5 @@
         <div class="text-center">
             <a asp-controller="EAdmin" asp-action="Create" class="btn btn-primary">Add Product</a>
         </div>
-    </div>
+    </main>
+</div>

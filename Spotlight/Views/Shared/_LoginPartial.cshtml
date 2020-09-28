@@ -4,23 +4,29 @@
 @inject SignInManager<AppUser> SignInManager
 @inject UserManager<AppUser> UserManager
 
-<ul class="navbar-nav">
+<ul class="nospace">
     @if (SignInManager.IsSignedIn(User))
     {
-        <li class="nav-item">
-            <a id="manage" class="nav-link text-dark" asp-controller="IdAccount" asp-action="Edit"> Hello @UserManager.GetUserName(User)!</a>
+        <li>
+            <a asp-controller="Home" asp-action="Index"><i class="fa fa fa-home">  Home  </i></a>
         </li>
-        <li class="nav-item">          
-            <a class="nav-link text-dark" id="logout" asp-controller="IdAccount" asp-action="Logout"><i class="fas fa-sign-out-alt"></i> Logout </a>
+        <li>
+            <a id="manage" asp-controller="IdAccount" asp-action="Edit" class="text-dark"> Hello @UserManager.GetUserName(User)!</a>
+        </li>
+        <li>
+            <a id="logout" asp-controller="IdAccount" asp-action="Logout"><i class="fa fa fa-sign-out">  Logout  </i></a>
         </li>
     }
     else
     {
-        <li class="nav-item">
-            <a class="nav-link text-dark" id="register" asp-controller="IdAccount" asp-action="Register"><i class="fas fa-user-plus"></i> Register </a>
+        <li>
+            <a asp-controller="Home" asp-action="Index"><i class="fa fa fa-home">  Home  </i></a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link text-dark" id="login" asp-controller="IdAccount" asp-action="Login"><i class="fas fa-user-circle"></i> Login </a>
+        <li>
+            <a id="register" asp-controller="IdAccount" asp-action="Register"><i class="fa fa fa-user-plus">  Register  </i></a>
+        </li>
+        <li>
+            <a id="login" asp-controller="IdAccount" asp-action="Login"><i class="fa fa fa-sign-in">  Login  </i></a>
         </li>
     }
 </ul>

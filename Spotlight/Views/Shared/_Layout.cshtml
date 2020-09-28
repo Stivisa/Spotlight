@@ -7,85 +7,83 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" />
+    <link href="~/css/layout.css" rel="stylesheet" type="text/css" media="all">
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Spotlight</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <partial name="_LoginPartial.cshtml">
-                        <ul class="navbar-nav flex-grow-1">
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Listings">Listings</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="News">News</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Ehome" asp-action="Index">Events</a>
-                            </li>
-                            @if (this.User.Identity.IsAuthenticated)
-                            {
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="IdHome" asp-action="Index">Group chat</a>
-                                </li>
-                            }
-                            @if (this.User.Identity.IsAuthenticated)
-                            {
-                                <li class="nav-item">
-                                    <div class="btn-group">
-                                        <a class="nav-link text-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            Manage
-                                        </a>
-                                        <div class="dropdown-menu">
-                                            <a class="nav-link text-dark" asp-controller="EAdmin" asp-action="Index">Events</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="nav-link text-dark">Listings</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="nav-link text-dark">News</a>
-                                        </div>
-                                    </div>
-                                </li>
-                            }
-                            <li class="nav-item">
-                                @if (this.User.IsInRole("Admins"))
-                                {
-                                    <div class="btn-group">
-                                        <a class="nav-link text-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            Admin
-                                        </a>
-                                        <div class="dropdown-menu">
-                                            <a class="nav-link text-dark" asp-controller="IdAdmin" asp-action="Index">Users</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="nav-link text-dark" asp-controller="RoleAdmin" asp-action="Index">Roles</a>
-                                        </div>
-                                    </div>
-                                }
-                            </li>
-                        </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+    <div class="wrapper row0">
+        <div id="topbar" class="hoc clear">
+            <partial name="_LoginPartial.cshtml">
+        </div>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2020 - Spotlight - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <div class="wrapper row1">
+        <header id="header" class="hoc clear">
+            <section>
+                <div></div>
+                <img src="~/Image/SpotlightLogo.png" />
+                <div></div>
+            </section>
+            <nav id="mainav">
+                <ul class="clear">
+                    <li class="active">
+                        <a class="text-dark" asp-area="" asp-controller="Home" asp-action="Listings">Listings</a>
+                    </li>
+                    <li>
+                        <a class="text-dark" asp-area="" asp-controller="Home" asp-action="News">News</a>
+                    </li>
+                    <li>
+                        <a class="text-dark" asp-area="" asp-controller="Ehome" asp-action="Index">Events</a>
+                    </li>
+                    @if (this.User.Identity.IsAuthenticated)
+                    {
+                        <li class="nav-item">
+                            <a class="text-dark" asp-area="" asp-controller="IdHome" asp-action="Index">Group chat</a>
+                        </li>
+                    }
+                    @if (this.User.Identity.IsAuthenticated)
+                    {
+                        <li class="nav-item">
+                            <a class="drop text-dark">Manage</a>
+                            <ul>
+                                <li><a asp-controller="EAdmin" asp-action="Index">My Events</a></li>
+                                <li><a>My Listings</a></li>
+                                <li><a>My News</a></li>
+                            </ul>
+                        </li>
+                    }
+                    @if (this.User.IsInRole("Admins"))
+                    {
+                        <li class="nav-item">
+                            <a class="drop text-dark">Admin</a>
+                            <ul>
+                                <li><a asp-controller="IdAdmin" asp-action="Index">Users</a></li>
+                                <li><a asp-controller="RoleAdmin" asp-action="Index">Roles</a></li>
+                            </ul>
+                        </li>
+                    }
+                </ul>
+            </nav>
+
+        </header>
+    </div>
+
+
+    @RenderBody()
+
+    <footer id="footer" class="hoc clear">
+        <div class="wrapper row5">
+            <div id="copyright" class="hoc clear">
+                &copy; 2020 - Spotlight - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            </div>
         </div>
     </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/jquery.min.js"></script>
+    <script src="~/js/jquery.backtotop.js"></script>
+    <script src="~/js/jquery.mobilemenu.js"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

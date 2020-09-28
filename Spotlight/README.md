@@ -10,3 +10,10 @@
 <pre>dotnet ef database update --context NewsDbContext</pre>
 
 4. Nakon registracije potrebno je verifikovati email. Confirmation link se ispisuje i u konzoli, za slucaj da je unet nepostojeci email (npr. example@example123.com)
+
+### PayPal Sandbox nalog
+
+PayPal možemo koristiti sa sledećim lažnim nalogom u svrhe testiranja:
+
+- E-Mail: sb-2kclh3321565@personal.example.com
+- Password: G_6Qp=mz

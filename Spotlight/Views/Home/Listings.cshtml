@@ -9,7 +9,7 @@
 
 @model ListingViewModel
 
-<div class="bgded overlay" style="background-image:url('/image/pozadina.jpg');">
+<div class="bgded overlay" style="background-image:url('/image/listings.jpg');">
     <section id="breadcrumb" class="hoc clear">
         <i class="fas fa-puzzle-piece fa-3x"></i>
         <h6 class="heading">Listings</h6>
@@ -90,14 +90,14 @@
                     @if (SignInManager.IsSignedIn(User) && (User.IsInRole("Admins") || UserManager.GetUserId(User) == l.UserID))
                     {
                         <div class="btn-group-justified btn-group-vertical float-right">
-                            <button class="btn btn-outline-warning"
+                            <button class="btn btn-outline-warning" style="margin-left:10px"
                                     data-toggle="modal" data-target='#@("editListingModal_" + l.id)'>
                                 <i class="fa fa fa-edit"></i>
                             </button>
 
                             @if (User.IsInRole("Admins"))
                             {
-                                <button class="btn btn-outline-dark mt-2"
+                                <button class="btn btn-outline-dark mt-2"  style="margin-left:10px"
                                         data-toggle="modal" data-target='#@("deleteListingModal_" + l.id)'>
                                     <i class="fa fa fa-close"></i>
                                 </button>
@@ -146,6 +146,7 @@
                     </div>
                 </div>
             </div>
+            <br />
         }
 
         <div page-model="@Model.PagingInfo" asp-action="Listings"

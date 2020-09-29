@@ -45,6 +45,36 @@ namespace Spotlight.Models.Listings
                     {
                         value = 12000,
                         When = new DateTime(2020, 5, 1, 12, 32, 30),
+                    },
+                    new DonationRecord
+                    {
+                        value = 780,
+                        When = new DateTime(2020, 4, 17, 12, 32, 30),
+                    },
+                    new DonationRecord
+                    {
+                        value = 905,
+                        When = new DateTime(2019, 10, 17, 12, 32, 30),
+                    },
+                    new DonationRecord
+                    {
+                        value = 850,
+                        When = new DateTime(2020, 3, 26, 12, 32, 30),
+                    },
+                    new DonationRecord
+                    {
+                        value = 100,
+                        When = new DateTime(2020, 7, 22, 12, 32, 30),
+                    },
+                    new DonationRecord
+                    {
+                        value = 75,
+                        When = new DateTime(2020, 6, 5, 12, 32, 30),
+                    },
+                    new DonationRecord
+                    {
+                        value = 890,
+                        When = new DateTime(2020, 3, 17, 12, 32, 30),
                     }
                 );
 

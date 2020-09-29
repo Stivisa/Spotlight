@@ -1,0 +1,96 @@
+﻿@model IEnumerable<int>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="bgded overlay" style="background-image:url('/Image/pozadina.jpg');">
+    <section id="breadcrumb" class="hoc clear">
+        <i class="fas fa-star fa-3x"></i>
+        <h6 class="heading">Statistics</h6>
+    </section>
+</div>
+
+
+<div class="wrapper row3" style="width:50%; margin-left:25%">
+    <main class="hoc container clear">
+        <div>
+            <h3>Trenutni broj donacija: @Model.ElementAt(0)</h3>
+            <canvas id="labelChart"></canvas>
+            <br /><br />
+            <canvas id="lineChart"></canvas>
+        </div>
+    </main>
+</div>
+
+
+<script>
+    var ctxP = document.getElementById("labelChart").getContext('2d');
+    var myPieChart = new Chart(ctxP, {
+      type: 'pie',
+      data: {
+        labels: ["<100", "100-500", "500-1000", ">1000"],
+        datasets: [{
+          data: [@Model.ElementAt(1), @Model.ElementAt(2), @Model.ElementAt(3), @Model.ElementAt(4)],
+          backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C", "#949FB1"],
+          hoverBackgroundColor: ["#FF5A5E", "#5AD3D1", "#FFC870", "#A8B3C5"]
+        }]
+      },
+      options: {
+        responsive: true,
+        legend: {
+          position: 'right',
+          labels: {
+            padding: 20,
+            boxWidth: 10
+          }
+        },
+        plugins: {
+          datalabels: {
+            formatter: (value, ctx) => {
+              let sum = 0;
+              let dataArr = ctx.chart.data.datasets[0].data;
+              dataArr.map(data => {
+                sum += data;
+              });
+              let percentage = (value * 100 / sum).toFixed(2) + "%";
+              return percentage;
+            },
+            color: 'white',
+            labels: {
+              title: {
+                font: {
+                  size: '16'
+                }
+              }
+            }
+          }
+        }
+      }
+    });
+
+    var ctxL = document.getElementById("lineChart").getContext('2d');
+    var myLineChart = new Chart(ctxL, {
+        type: 'line',
+        data: {
+            labels: ["January", "February", "March", "April", "May", "June", "July", "August", "October", "November", "December"],
+            datasets: [{
+                label: "Month statistics",
+                 data: [@Model.ElementAt(5), @Model.ElementAt(6), @Model.ElementAt(7), @Model.ElementAt(8), @Model.ElementAt(9), @Model.ElementAt(10), @Model.ElementAt(11), @Model.ElementAt(12), @Model.ElementAt(13), @Model.ElementAt(14), @Model.ElementAt(15), @Model.ElementAt(16)],
+                backgroundColor: [
+                    'rgba(105, 0, 132, .2)',
+                ],
+                borderColor: [
+                    'rgba(200, 99, 132, .7)',
+                ],
+                borderWidth: 2
+            }
+            ]
+        },
+        options: {
+            responsive: true
+        }
+    });
+
+
+</script>

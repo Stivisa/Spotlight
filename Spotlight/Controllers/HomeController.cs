@@ -22,7 +22,7 @@ namespace Spotlight.Controllers
         private IListingRepository listingRepository;
         private UserManager<AppUser> userManager;
 
-        public int pageSize = 4;
+        public int pageSize = 3;
 
         public HomeController(ILogger<HomeController> logger, INewsPostRepository newsRepo, 
                               IListingRepository listingRepo, UserManager<AppUser> usrMgr)
@@ -59,6 +59,39 @@ namespace Spotlight.Controllers
                 },
             });;
         }
+
+        public IActionResult AboutUs(int currentPage = 1)
+        {
+            return View("~/Views/Home/AboutUs.cshtml");
+        }
+
+        public IActionResult Statistics(int currentPage = 1)
+        {
+            var Donations = listingRepository.DonationRecords;
+            var CountDon = Donations.Count();
+            var don1 = Donations.Where(e => e.value < 100).Count();
+            var don2 = Donations.Where(e => e.value >= 100 && e.value < 500).Count();
+            var don3 = Donations.Where(e => e.value >= 500 && e.value < 1000).Count();
+            var don4 = Donations.Where(e => e.value > 1000).Count();
+
+            var jan = Donations.Where(e => e.When.Month == 1).Count();
+            var feb = Donations.Where(e => e.When.Month == 2).Count();
+            var mar = Donations.Where(e => e.When.Month == 3).Count();
+            var apr = Donations.Where(e => e.When.Month == 4).Count();
+            var maj = Donations.Where(e => e.When.Month == 5).Count();
+            var jun = Donations.Where(e => e.When.Month == 6).Count();
+            var jul = Donations.Where(e => e.When.Month == 7).Count();
+            var aug = Donations.Where(e => e.When.Month == 8).Count();
+            var sep = Donations.Where(e => e.When.Month == 9).Count();
+            var oct = Donations.Where(e => e.When.Month == 10).Count();
+            var nov = Donations.Where(e => e.When.Month == 11).Count();
+            var dec = Donations.Where(e => e.When.Month == 12).Count();
+
+            int[] chart = { CountDon, don1, don2, don3, don4, jan, feb, mar, apr, maj, jun, jul, aug, sep, oct, nov, dec };
+
+            return View(chart);
+        }
+
 
         public IActionResult News(int currentPage = 1)
         {

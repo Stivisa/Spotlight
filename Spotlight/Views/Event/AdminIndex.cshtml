@@ -4,7 +4,7 @@
 }
 
 
-<div class="bgded overlay" style="background-image:url('/Image/pozadina.jpg');">
+<div class="bgded overlay" style="background-image:url('/Image/events.jpg');">
     <section id="breadcrumb" class="hoc clear">
         <i class="fas fa-list-ul fa-3x"></i>
         <h6 class="heading">@ViewBag.Title</h6>
@@ -44,12 +44,12 @@
 
                         <a asp-controller="EAdmin" asp-action="Edit" class="btn btn-sm btn-warning"
                            asp-route-eventId="@item.EventID">
-                            Edit
+                            <i class="fa fa fa-edit"></i>
                         </a>
                         <input type="hidden" name="ProductID" value="@item.EventID" />
                         <a asp-controller="EAdmin" asp-action="Delete" class="btn btn-sm btn-danger"
                            asp-route-eventId="@item.EventID">
-                            Delete
+                            <i class="fa fa fa-close"></i>
                         </a>
 
                     </td>
@@ -57,7 +57,7 @@
             }
         </table>
         <div class="text-center">
-            <a asp-controller="EAdmin" asp-action="Create" class="btn btn-primary">Add Product</a>
+            <a asp-controller="EAdmin" asp-action="Create" class="btn btn-primary">Add Event</a>
         </div>
     </main>
 </div>

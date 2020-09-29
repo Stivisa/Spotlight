@@ -7,95 +7,108 @@
 @inject UserManager<AppUser> UserManager
 
 @model NewsPostViewModel
-
-<div class="d-flex justify-content-between">
-    <h1 class="display-4">News</h1>
-    <div class="align-self-center">
-        @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admins"))
-        {
-            <button class="btn btn-outline-primary float-right" id="newPostButton"
-                    data-toggle="modal" data-target="#newPostModal">
-                Add a news post
-            </button>
-        }
-    </div>
+<div class="bgded overlay" style="background-image:url('/image/news.jpg');">
+    <section id="breadcrumb" class="hoc clear">
+        <i class="fas fa-newspaper-o fa-3x"></i>
+        <h6 class="heading">News</h6>
+    </section>
 </div>
 
-<div id="newPostModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">New Post</h4>
-            </div>
+<div class="wrapper row3">
+    <main class="hoc container clear">
 
-            <div class="modal-body">
-                <partial name="_AddNewPost" model="@new NewsPost()" />
-            </div>
-        </div>
-    </div>
-</div>
-
-@foreach (var n in Model.NewsPosts)
-{
-<div class="card">
-    <div id='@("editPostModal_" + n.id)' class="modal fade" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Edit Post</h4>
-                </div>
-
-                <div class="modal-body">
-                    <partial name="_EditNewsPost" model="@n" />
-                </div>
+        <div class="d-flex justify-content-between">
+            <div class="align-self-center">
+                @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admins"))
+                {
+                    <button class="btn btn-outline-primary float-right" id="newPostButton"
+                            data-toggle="modal" data-target="#newPostModal">
+                        <i class="fa fa fa-plus-square-o">Add a news post</i>
+                    </button>
+                }
             </div>
         </div>
-    </div>
+        <br />
 
-    <div id='@("deletePostModal_" + n.id)' class="modal fade" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Delete Post</h4>
-                </div>
+        <div id="newPostModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">New Post</h4>
+                    </div>
 
-                <div class="modal-body">
-                    <partial name="_DeleteNewsPost" model="@n" />
+                    <div class="modal-body">
+                        <partial name="_AddNewPost" model="@new NewsPost()" />
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="card-body">
-        @if (n.TimeOfPosting.HasValue)
+        @foreach (var n in Model.NewsPosts)
         {
-            <p class="mb-1 text-muted card-subtitle">@n.TimeOfPosting.Value.ToString("MMMM d, yyyy")</p>
+            <div class="card">
+                <div id='@("editPostModal_" + n.id)' class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title"><i class="fa fa fa-edit"></i></h4>
+                            </div>
+
+                            <div class="modal-body">
+                                <partial name="_EditNewsPost" model="@n" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id='@("deletePostModal_" + n.id)' class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title"><i class="fa fa fa-close"></i></h4>
+                            </div>
+
+                            <div class="modal-body">
+                                <partial name="_DeleteNewsPost" model="@n" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    @if (n.TimeOfPosting.HasValue)
+                    {
+                        <p class="mb-1 text-muted card-subtitle">@n.TimeOfPosting.Value.ToString("MMMM d, yyyy")</p>
+                    }
+
+                    @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admins"))
+                    {
+                        <div class="btn-group-justified btn-group-vertical float-right">
+                            <button class="btn btn-outline-warning"
+                                    data-toggle="modal" data-target='#@("editPostModal_" + n.id)'>
+                                <i class="fa fa fa-edit"></i>
+                            </button>
+
+                            <button class="btn btn-outline-dark mt-2"
+                                    data-toggle="modal" data-target='#@("deletePostModal_" + n.id)'>
+                                <i class="fa fa fa-remove"></i>
+                            </button>
+                        </div>
+                    }
+
+                    <h2 class="card-title">@n.PostHeadline</h2>
+
+                    <div class="card-text">@n.PostContent</div>
+                </div>
+            </div>
+            <br />
         }
 
-        @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admins"))
-        {
-            <div class="btn-group-justified btn-group-vertical float-right">
-                <button class="btn btn-outline-warning"
-                        data-toggle="modal" data-target='#@("editPostModal_" + n.id)'>
-                    Edit
-                </button>
-
-                <button class="btn btn-outline-dark mt-2"
-                        data-toggle="modal" data-target='#@("deletePostModal_" + n.id)'>
-                    Delete
-                </button>
-            </div>
-        }
-
-        <h2 class="card-title">@n.PostHeadline</h2>
-
-        <div class="card-text">@n.PostContent</div>
-    </div>
+        <div page-model="@Model.PagingInfo" asp-action="News"
+             page-classes-enabled="true"
+             page-class="btn" page-class-normal="btn-secondary"
+             page-class-selected="btn-primary" class="btn-group pull-right m-1">
         </div>
-}
 
-<div page-model="@Model.PagingInfo" asp-action="News"
-     page-classes-enabled="true"
-     page-class="btn" page-class-normal="btn-secondary"
-     page-class-selected="btn-primary" class="btn-group pull-right m-1">
+    </main>
 </div>
